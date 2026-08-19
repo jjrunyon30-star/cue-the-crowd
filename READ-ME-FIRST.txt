@@ -1,35 +1,33 @@
-CUE THE CROWD — FINAL LICENSED ARCHITECTURE
+CUE THE CROWD — BUYER EXPERIENCE + AUTOMATED DELIVERY BUILD
 
-WORKING EVENT BACKEND (UNCHANGED)
-- Existing firebase.js remains connected to event-platform-pro-web.
-- This continues to handle live events, guests, voting, photos, song requests, buzzer, etc.
+CUSTOMER-FACING
+- instructions.html = polished complete Operator Guide
+- portal.html = polished customer portal
+- buyer-email-preview.html = browser preview of exactly what the purchaser email looks like
+- buyer-welcome-email.html = reusable email template
+- index.html already includes Operator Guide in the host header
 
-LICENSING / SECURITY BACKEND
-- Firebase project: event-platform-pro
-- Auth domain: event-platform-pro.firebaseapp.com
-- Realtime Database:
-  https://event-platform-pro-default-rtdb.firebaseio.com/
-- Email/Password Authentication enabled
-- Realtime Database created in locked mode
-- Licensing rules published
+AUTOMATED DELIVERY BACKEND
+The PayPal webhook now:
+1. verifies the PayPal webhook signature
+2. independently verifies the completed USD $799 capture
+3. retrieves the PayPal order to obtain the payer email
+4. creates/finds the Firebase Authentication user
+5. activates the company license with 5 seats
+6. generates the Firebase password-setup/reset link
+7. sends the polished branded welcome email automatically
+8. records delivery in the licensing Realtime Database
 
-CUSTOMER LICENSE MODEL
-- License belongs to the DJ company, not one computer.
-- Owner can sign in from different computers.
-- Separate employee DJ logins are supported.
-- Initial configuration: 5 users per company total (owner + 4 DJs).
-- Guest join links remain no-login / no-download.
+ONLY ACCOUNT-SPECIFIC ITEMS STILL REQUIRED
+A. PAYPAL_WEBHOOK_ID must be saved as a Google/Firebase secret.
+B. SMTP_PASSWORD must be saved as a Google/Firebase secret.
+   SMTP account: jessica@cuethecrowdlive.com
+   SMTP host: mail.privateemail.com
+   Port: 465 SSL
+C. Run npm install inside functions after this package is placed on the user's PC.
+D. Redeploy Firebase Functions once with the new code.
+E. Push the updated static app files to GitHub.
 
-TECHNICAL DESIGN
-- Host app initializes a SECOND Firebase app named cueLicensing.
-- This keeps the working event backend separate and untouched.
-- The host side checks licensing project Auth + license/team membership.
-- Guest URLs using ?join=CODE bypass DJ authentication.
-
-NEXT DEPLOYMENT ITEMS
-1. Install Firebase Functions dependencies.
-2. Set PayPal Client ID and Secret as Firebase secrets.
-3. Deploy the PayPal licensing Function to event-platform-pro.
-4. Configure PayPal webhook to call that Function.
-5. Upload this protected app build to the live GitHub app repository.
-6. Create/verify the first company license and team-user flow.
+DO NOT GIVE THIS ZIP TO BUYERS.
+This is the deployment/source package only.
+Buyers receive the automated branded email and use the hosted software.

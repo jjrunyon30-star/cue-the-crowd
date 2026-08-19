@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cue the Crowd | Operator Guide</title>
+<meta name="description" content="Complete Cue the Crowd operating guide for DJs and event hosts.">
+<style>
+:root{
+ --bg:#07080b;--panel:#10131a;--panel2:#151923;--gold:#ddb960;--gold2:#f3d98c;
+ --text:#f8f7f3;--muted:#b8bbc5;--line:rgba(221,185,96,.24);--soft:rgba(255,255,255,.07)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+radial-gradient(circle at 13% 0%,rgba(102,67,173,.16),transparent 24%),
+radial-gradient(circle at 88% 6%,rgba(221,185,96,.14),transparent 23%),var(--bg);color:var(--text);line-height:1.65}
+a{color:inherit}.wrap{width:min(1160px,calc(100% - 36px));margin:auto}
+.top{position:sticky;top:0;z-index:30;background:rgba(7,8,11,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--soft)}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:900;letter-spacing:.06em}
+.mark{width:42px;height:42px;border-radius:12px;border:1px solid var(--gold);display:grid;place-items:center;color:var(--gold);font-size:12px}
+.nav-actions{display:flex;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:11px;text-decoration:none;font-weight:850;border:1px solid var(--line);background:#11141b}
+.btn.primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#090909;border:0}
+.hero{padding:70px 0 34px}.eyebrow{color:var(--gold);font-size:12px;font-weight:900;letter-spacing:.17em;text-transform:uppercase}
+h1{font-size:clamp(44px,6vw,74px);line-height:1.02;letter-spacing:-.045em;margin:12px 0 18px}
+.lead{font-size:20px;color:#d1d3d9;max-width:850px}.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+.quick a{padding:18px;border:1px solid var(--line);background:linear-gradient(180deg,#11141b,#0d0f14);border-radius:15px;text-decoration:none}
+.quick strong{display:block;color:var(--gold);margin-bottom:4px}.quick span{color:var(--muted);font-size:14px}
+section{padding:58px 0}.kicker{color:var(--gold);font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+h2{font-size:clamp(32px,4vw,48px);line-height:1.1;letter-spacing:-.03em;margin:8px 0 12px}
+.copy{color:var(--muted);font-size:17px;max-width:880px}.flow{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0}
+.flow span{border:1px solid var(--line);background:#10131a;padding:9px 12px;border-radius:999px;font-weight:800;font-size:14px}.flow b{align-self:center;color:var(--gold)}
+.steps{margin-top:20px}.step{display:grid;grid-template-columns:52px 1fr;gap:18px;padding:23px 0;border-bottom:1px solid var(--soft)}
+.num{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#090909;font-weight:950}
+.step h3{margin:0 0 7px;font-size:21px}.step p{margin:0;color:#c5c7ce}.why{margin-top:9px;color:#9fa3ad;font-size:14px}.why b{color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}.card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--soft);border-radius:17px;padding:22px}
+.card h3{margin:0 0 8px;font-size:19px}.card p{margin:0;color:#bec1c9}.tag{display:inline-block;color:var(--gold);font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.ref{width:100%;border-collapse:collapse;margin-top:22px;background:#0d0f14;border-radius:16px;overflow:hidden}
+.ref th,.ref td{text-align:left;vertical-align:top;padding:14px 13px;border-bottom:1px solid var(--soft)}
+.ref th{color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:.09em}.ref td:first-child{font-weight:850;width:29%}
+.note{border-left:3px solid var(--gold);background:rgba(221,185,96,.08);padding:15px 17px;border-radius:0 12px 12px 0;margin:20px 0;color:#d8d9dd}
+.accordion details{border-bottom:1px solid var(--soft);padding:16px 0}.accordion summary{cursor:pointer;font-weight:850}.accordion p{color:var(--muted)}
+.footer{padding:38px 0 56px;border-top:1px solid var(--soft);color:#999}.back{display:inline-block;margin-top:18px;color:var(--gold)}
+@media(max-width:850px){.quick{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.quick,.grid{grid-template-columns:1fr}.nav-actions .hide-mobile{display:none}.hero{padding-top:45px}.step{grid-template-columns:42px 1fr}.num{width:36px;height:36px}.ref,.ref tbody,.ref tr,.ref td{display:block}.ref th{display:none}.ref td:first-child{width:auto;color:var(--gold);padding-bottom:3px}.ref td:last-child{padding-top:3px}}
+</style>
+</head>
+<body id="top">
+<header class="top"><div class="wrap nav">
+<a class="brand" href="index.html"><span class="mark">CTC</span><span>CUE THE CROWD</span></a>
+<div class="nav-actions"><a class="btn hide-mobile" href="#first-event">Start Here</a><a class="btn primary" href="index.html">Back to Cue the Crowd</a></div>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+<div class="eyebrow">DJ OPERATOR GUIDE</div>
+<h1>Run Cue the Crowd with confidence.</h1>
+<p class="lead">This guide is the complete operating manual for the host side of Cue the Crowd. Start with the first-event walkthrough, then use the feature reference whenever you need to know what a control does, when to use it, and why it matters.</p>
+<div class="quick">
+<a href="#first-event"><strong>Your First Event</strong><span>Exact click-by-click workflow</span></a>
+<a href="#guest-hub"><strong>Guest Hub</strong><span>Guest connection and live tools</span></a>
+<a href="#live-experience"><strong>Live Experience</strong><span>Display, draws, moments and lights</span></a>
+<a href="#troubleshooting"><strong>Troubleshooting</strong><span>Fast answers during an event</span></a>
+</div>
+</div></section>
+
+<section id="first-event"><div class="wrap">
+<div class="kicker">START HERE</div><h2>Your first event, from login to final song.</h2>
+<p class="copy">For your first real event, do not try to use every feature. Follow this order, test with one phone, and activate only the interactions that fit the room.</p>
+<div class="flow"><span>Sign In</span><b>→</b><span>Create Event</span><b>→</b><span>Event DNA</span><b>→</b><span>Guest Hub</span><b>→</b><span>Share QR / Link</span><b>→</b><span>Test Guest</span><b>→</b><span>Run Live</span></div>
+
+<div class="steps">
+<div class="step"><div class="num">1</div><div><h3>Sign in to the DJ host platform</h3><p>Open Cue the Crowd and sign in with your authorized company DJ email and password.</p><div class="why"><b>Why:</b> the host side is licensed software. Guests never use this login.</div></div></div>
+<div class="step"><div class="num">2</div><div><h3>Click + CREATE NEW EVENT</h3><p>Choose the event type: Wedding, Birthday, Class Reunion, Corporate Event, Holiday Party, School Event, Bar / Venue or General Event.</p><div class="why"><b>Why:</b> every guest link, saved setting, live interaction and show belongs to a specific event.</div></div></div>
+<div class="step"><div class="num">3</div><div><h3>Complete Event DNA and save</h3><p>Add the event name and the details available for that event type. Weddings include partner names, date, guest count, age range, music style, couple story and topics to avoid.</p><div class="why"><b>Why:</b> Event DNA gives the show-building tools context so the experience can feel specific to that event instead of generic.</div></div></div>
+<div class="step"><div class="num">4</div><div><h3>Choose your operating style</h3><p>If you want a planned sequence, open <strong>Show Builder</strong>. If you mainly want guest interaction—polls, requests, photos, buzzer, prize draw, announcements—go directly to <strong>Guest Hub</strong>.</p><div class="why"><b>Why:</b> Cue the Crowd can run as a planned show or as an on-demand live toolkit. You do not need both at every event.</div></div></div>
+<div class="step"><div class="num">5</div><div><h3>Open Guest Hub before guests arrive</h3><p>Guest Hub is your live guest-control center. Confirm the correct event, then copy the Guest Join link or use the event QR workflow.</p><div class="why"><b>Why:</b> one wrong event link means guests could connect to the wrong event. Check it before the room fills.</div></div></div>
+<div class="step"><div class="num">6</div><div><h3>Connect one test phone</h3><p>Open the Guest Join link on a separate phone/browser. Verify that the phone shows the correct event and that <strong>Guests Connected</strong> increases on the host side.</p><div class="why"><b>Why:</b> this confirms the real guest path and Firebase live connection before you ask 150 people to scan.</div></div></div>
+<div class="step"><div class="num">7</div><div><h3>Activate only the features you want</h3><p>Use Guest Hub to turn on Voting, Predictions, Song Requests, Photos, Shoutouts, Buzzer, Tipping and other guest-facing tools as appropriate.</p><div class="why"><b>Why:</b> the guest experience stays cleaner when people only see what is relevant right now.</div></div></div>
+<div class="step"><div class="num">8</div><div><h3>Prepare Audience Display if the venue has a screen</h3><p>Open Audience Display in a separate browser/window and move that window to the projector or venue TV. Keep the host controls on your DJ laptop.</p><div class="why"><b>Why:</b> guests see a polished presentation while your private controls remain private.</div></div></div>
+<div class="step"><div class="num">9</div><div><h3>Invite the room to scan once</h3><p>Display the QR code on the venue screen, table card, wedding signage or another visible place. You can also send the Guest Join link digitally. Tell guests to keep the page open.</p><div class="why"><b>Why:</b> they do not rescan for each activity. Their Guest Hub changes as you activate experiences.</div></div></div>
+<div class="step"><div class="num">10</div><div><h3>Run the room</h3><p>Use Guest Tools for polls, predictions, requests, photos, buzzer and tipping. Use Live Experience for prize draws, guest announcements, audience results, word cloud and Crowd Light Show. Use Show Builder/Host Control when you want a planned entertainment sequence.</p></div></div>
+<div class="step"><div class="num">11</div><div><h3>Close and reset at the end</h3><p>Close submissions you no longer want, stop light effects, clear live results and reset any activity that should not remain active.</p><div class="why"><b>Why:</b> the event ends in a clean state and you do not accidentally leave guest interactions open.</div></div></div>
+</div>
+<div class="note"><strong>Best first-event setup:</strong> start with 3–5 features, such as Voting, Song Requests, Photos, Buzzer and one Live Experience. Add more after you know how the room responds.</div>
+</div></section>
+
+<section id="navigation"><div class="wrap">
+<div class="kicker">CORE SCREENS</div><h2>What each main area is for.</h2>
+<div class="grid">
+<div class="card"><span class="tag">CREATE</span><h3>Event DNA</h3><p>Stores the event-specific details that personalize the experience.</p></div>
+<div class="card"><span class="tag">BUILD</span><h3>Show Builder</h3><p>Creates a planned sequence based on length, tone, participation format and content mix.</p></div>
+<div class="card"><span class="tag">RUN</span><h3>Host Control</h3><p>Runs a saved show privately and moves through segments in order.</p></div>
+<div class="card"><span class="tag">INSTANT</span><h3>Quick Launch</h3><p>Starts a crowd activity immediately without rebuilding the planned show.</p></div>
+<div class="card"><span class="tag">LIBRARY</span><h3>My Events</h3><p>Reopens, edits, duplicates, templates or deletes saved events.</p></div>
+<div class="card"><span class="tag">LIVE</span><h3>Guest Hub</h3><p>Controls guest phones, submissions, venue visuals and live audience activity.</p></div>
+<div class="card"><span class="tag">RESCUE</span><h3>Show Director</h3><p>Recommends an activity based on how much time you need to fill and what the room needs.</p></div>
+<div class="card"><span class="tag">VENUE</span><h3>Audience Display</h3><p>Shows room-facing content separately from your private DJ controls.</p></div>
+<div class="card"><span class="tag">HELP</span><h3>Operator Guide</h3><p>This manual. Open it in a second tab whenever you need a control explained.</p></div>
+</div>
+</div></section>
+
+<section id="show-builder"><div class="wrap">
+<div class="kicker">SHOW BUILDER + HOST CONTROL</div><h2>Build a plan, then run it privately.</h2>
+<table class="ref"><thead><tr><th>Control</th><th>What it does</th></tr></thead><tbody>
+<tr><td>Show Length</td><td>Choose how long you want the generated entertainment sequence to run.</td></tr>
+<tr><td>Experience Choices</td><td>Select the content emphasis: competition, music, personalized moments, memories, movement, funny content and related options.</td></tr>
+<tr><td>Competition Level</td><td>Controls the tone/intensity of the competitive parts of the show.</td></tr>
+<tr><td>Participation Format</td><td>Choose how people participate: tables, sides, individuals or whole-room formats.</td></tr>
+<tr><td>BUILD MY SHOW</td><td>Generates a sequence of actual activities that fits the selections and requested runtime.</td></tr>
+<tr><td>USE THIS SHOW</td><td>Saves the generated sequence to the current event.</td></tr>
+<tr><td>REBUILD</td><td>Returns to Show Builder so you can create another version.</td></tr>
+<tr><td>PREVIOUS / NEXT</td><td>Moves through the saved show segments inside Host Control.</td></tr>
+<tr><td>LAUNCH CURRENT SEGMENT</td><td>Starts the selected segment/activity.</td></tr>
+<tr><td>HOST QUICK LAUNCH</td><td>Temporarily launches an instant activity without abandoning the planned show.</td></tr>
+</tbody></table>
+</div></section>
+
+<section id="guest-hub"><div class="wrap">
+<div class="kicker">GUEST HUB</div><h2>The live guest-control center.</h2>
+<p class="copy">Guest Hub is organized into <strong>Overview</strong>, <strong>Guest Tools</strong>, <strong>Live Experience</strong> and <strong>Activity</strong>. Guests connect once; you control what happens afterward.</p>
+
+<h3>Overview</h3>
+<table class="ref"><tbody>
+<tr><td>Guests Connected</td><td>Live count of guest devices currently connected to this event.</td></tr>
+<tr><td>Event Code</td><td>The event-specific code used by the guest experience.</td></tr>
+<tr><td>COPY JOIN LINK</td><td>Copies the exact browser link guests use to join this event.</td></tr>
+<tr><td>Guest Feature Buttons</td><td>Turns individual guest-facing features on/off for the current event.</td></tr>
+<tr><td>PREVIEW GUEST VIEW</td><td>Lets you see what the guest side looks like without leaving the host workflow.</td></tr>
+</tbody></table>
+
+<h3>Voting</h3>
+<table class="ref"><tbody>
+<tr><td>Poll Question / Choices</td><td>Enter the poll question and answer choices.</td></tr>
+<tr><td>LAUNCH POLL</td><td>Sends the poll to connected guest phones.</td></tr>
+<tr><td>CLEAR POLL</td><td>Removes the current poll.</td></tr>
+<tr><td>SEND VOTING RESULTS</td><td>Pushes the live result to the audience-facing presentation.</td></tr>
+</tbody></table>
+
+<h3>Predictions</h3>
+<table class="ref"><tbody>
+<tr><td>Prediction Question / Choices</td><td>Enter what guests are predicting and their choices.</td></tr>
+<tr><td>LAUNCH PREDICTION</td><td>Sends the prediction to connected guests.</td></tr>
+<tr><td>SEND PREDICTION RESULTS</td><td>Shows the result in the live audience presentation.</td></tr>
+</tbody></table>
+
+<h3>Song Requests + Priority Requests</h3>
+<table class="ref"><tbody>
+<tr><td>Request Prompt</td><td>Controls the instruction guests see when requests are open.</td></tr>
+<tr><td>OPEN / CLOSE REQUESTS</td><td>Starts or stops new guest song requests.</td></tr>
+<tr><td>Smart Queue</td><td>Similar requests combine so you see actual demand instead of duplicate clutter.</td></tr>
+<tr><td>MARK PLAYED</td><td>Marks a request as played.</td></tr>
+<tr><td>DECLINE</td><td>Declines a request you do not want to use.</td></tr>
+<tr><td>Priority Boost</td><td>Guests can choose a paid boost amount after submitting a request. A boost raises priority; it never guarantees that you will play the song.</td></tr>
+<tr><td>PAYMENT UNVERIFIED</td><td>The guest submitted a Priority Request, but you have not yet verified the money in your payment account.</td></tr>
+<tr><td>VERIFY + PRIORITIZE</td><td>Use only after you confirm payment. It marks the Priority Request verified and raises it in the queue.</td></tr>
+</tbody></table>
+
+<h3>Photos</h3>
+<table class="ref"><tbody>
+<tr><td>Photo Prompt</td><td>Controls the instruction guests see when submitting photos.</td></tr>
+<tr><td>OPEN / CLOSE PHOTO SUBMISSIONS</td><td>Starts or stops new guest photo uploads.</td></tr>
+<tr><td>APPROVE / REJECT</td><td>Moderates guest photos before they can be used publicly.</td></tr>
+<tr><td>APPROVED PHOTO GALLERY</td><td>Shows the approved photo collection.</td></tr>
+<tr><td>SHOW GALLERY ON AUDIENCE DISPLAY</td><td>Sends approved photos to the venue-facing display.</td></tr>
+</tbody></table>
+
+<h3>Shoutouts</h3>
+<table class="ref"><tbody>
+<tr><td>Shoutout Inbox</td><td>Shows submitted guest messages.</td></tr>
+<tr><td>APPROVE / REJECT</td><td>Moderates the message before it is used. Guest text does not have to go directly to the room.</td></tr>
+</tbody></table>
+
+<h3>Buzzer</h3>
+<table class="ref"><tbody>
+<tr><td>OPEN BUZZER</td><td>Arms Fastest Finger for connected guest phones.</td></tr>
+<tr><td>BUZZ!</td><td>The guest-side action. The first accepted buzz wins the round.</td></tr>
+<tr><td>RESET</td><td>Clears the winner and prepares the next round.</td></tr>
+</tbody></table>
+
+<h3>Tipping</h3>
+<table class="ref"><tbody>
+<tr><td>Entertainer / Business Name</td><td>The name guests see in the tipping experience.</td></tr>
+<tr><td>Payment Link</td><td>Your own payment destination for tips.</td></tr>
+<tr><td>ENABLE / DISABLE TIPPING</td><td>Makes tipping available or removes it from the guest experience.</td></tr>
+</tbody></table>
+</div></section>
+
+<section id="live-experience"><div class="wrap">
+<div class="kicker">LIVE EXPERIENCE</div><h2>Whole-room moments and venue presentation.</h2>
+<table class="ref"><tbody>
+<tr><td>Prize Draw — OPEN ENTRIES</td><td>Allows connected guests to enter a free guest drawing.</td></tr>
+<tr><td>Prize Draw — CLOSE</td><td>Stops new entries.</td></tr>
+<tr><td>DRAW WINNER</td><td>Selects a winner from the current entries.</td></tr>
+<tr><td>RESET</td><td>Clears the drawing so you can run another.</td></tr>
+<tr><td>Guest Announcement</td><td>Send a live event moment such as “Toasts begin in 5 minutes,” “Cake cutting,” “Photo booth closing” or a custom message.</td></tr>
+<tr><td>Also show on Audience Display</td><td>Pushes the announcement to the venue screen as well as the guest experience.</td></tr>
+<tr><td>OPEN AUDIENCE DISPLAY</td><td>Opens the room-facing display in a separate window.</td></tr>
+<tr><td>COPY DISPLAY LINK</td><td>Copies the display URL for another venue browser/device.</td></tr>
+<tr><td>Event Colors</td><td>Sets the presentation colors for the event experience.</td></tr>
+<tr><td>Live Word Cloud — OPEN</td><td>Allows guests to submit one-word responses.</td></tr>
+<tr><td>SHOW / HIDE AUDIENCE</td><td>Controls whether the live word cloud appears on the venue display.</td></tr>
+<tr><td>CLEAR WORDS</td><td>Deletes the current word-cloud responses.</td></tr>
+<tr><td>Crowd Light Show</td><td>Turns connected guest phones into synchronized light effects.</td></tr>
+<tr><td>START / STOP</td><td>Starts the selected phone-light mode or returns guests to the normal Guest Hub.</td></tr>
+<tr><td>PULSE / RED-BLUE / RAINBOW / WHITE FLASH</td><td>Runs the named synchronized phone-light effect.</td></tr>
+<tr><td>BUILD + DROP</td><td>Runs the coordinated build-up/drop sequence designed for a big room moment.</td></tr>
+</tbody></table>
+</div></section>
+
+<section id="games"><div class="wrap">
+<div class="kicker">LIVE GAMES + SCORING</div><h2>Running activities and keeping score.</h2>
+<table class="ref"><tbody>
+<tr><td>+1 / −1</td><td>Adjusts a team score during a live activity.</td></tr>
+<tr><td>+ ADD TEAM</td><td>Adds another team in multi-team formats such as table competition.</td></tr>
+<tr><td>RESET SCORE(S)</td><td>Clears the scoreboard for a new activity or round.</td></tr>
+<tr><td>PREVIOUS / NEXT</td><td>Moves between rounds within the current live activity.</td></tr>
+<tr><td>SEND ROUND TO AUDIENCE</td><td>Pushes the current round and appropriate scoreboard to the venue-facing display.</td></tr>
+<tr><td>FINISH ACTIVITY</td><td>Ends the current activity and returns to the controlling workflow.</td></tr>
+</tbody></table>
+<div class="note"><strong>Music activities:</strong> Cue the Crowd supplies the game structure and prompts. The entertainer remains responsible for their own lawful music source and performance setup.</div>
+</div></section>
+
+<section id="quick-launch"><div class="wrap">
+<div class="kicker">QUICK LAUNCH + SHOW DIRECTOR</div><h2>When the room needs something now.</h2>
+<div class="grid">
+<div class="card"><h3>Crowd Pulse</h3><p>Fast whole-room participation with almost no setup.</p></div>
+<div class="card"><h3>Battle of the Tables</h3><p>Turns tables into teams for competitive crowd play.</p></div>
+<div class="card"><h3>Side vs. Side</h3><p>Splits the room into two teams.</p></div>
+<div class="card"><h3>Music Showdown</h3><p>Music-driven crowd challenge using the entertainer’s own music source.</p></div>
+<div class="card"><h3>Generation Battle</h3><p>Generation-based crowd competition.</p></div>
+<div class="card"><h3>Couple Spotlight</h3><p>Wedding-focused couple/crowd interaction.</p></div>
+<div class="card"><h3>Quick Laugh</h3><p>Low-pressure comedy/participation reset.</p></div>
+<div class="card"><h3>Room Rescue</h3><p>Fast activity when energy or timing unexpectedly changes.</p></div>
+<div class="card"><h3>Show Director</h3><p>Choose the time you need to fill and the room condition; Cue the Crowd recommends an activity.</p></div>
+</div>
+</div></section>
+
+<section id="my-events"><div class="wrap">
+<div class="kicker">MY EVENTS</div><h2>Your saved event library.</h2>
+<table class="ref"><tbody>
+<tr><td>OPEN EVENT</td><td>Loads the selected saved event into Event HQ.</td></tr>
+<tr><td>EDIT</td><td>Reopens Event DNA so you can change the saved details.</td></tr>
+<tr><td>DUPLICATE</td><td>Makes a copy so you can reuse a setup without changing the original.</td></tr>
+<tr><td>SAVE AS TEMPLATE</td><td>Stores the event structure as a reusable starting point.</td></tr>
+<tr><td>DELETE</td><td>Removes the saved event. Use carefully.</td></tr>
+</tbody></table>
+</div></section>
+
+<section id="company"><div class="wrap">
+<div class="kicker">COMPANY ACCESS</div><h2>Your license belongs to your DJ company.</h2>
+<p class="copy">The owner is not locked to one computer. Authorized DJ users sign in with their own email/password under the same company license. Do not share the owner password between employees.</p>
+<div class="grid">
+<div class="card"><h3>Owner Account</h3><p>Primary company account and license holder.</p></div>
+<div class="card"><h3>Authorized DJs</h3><p>Employee DJs can receive separate user accounts rather than sharing one login.</p></div>
+<div class="card"><h3>Guest Access</h3><p>Wedding/event guests never use DJ credentials. Their event join links remain no-account/no-download.</p></div>
+</div>
+</div></section>
+
+<section id="troubleshooting"><div class="wrap">
+<div class="kicker">TROUBLESHOOTING</div><h2>Fast answers during an event.</h2>
+<div class="accordion">
+<details open><summary>A guest scanned the QR but nothing useful appears.</summary><p>First confirm you are running the correct event in Guest Hub and that the join link/QR belongs to that event. Then confirm the feature you expect the guest to use is activated.</p></details>
+<details><summary>The Guests Connected number is not changing.</summary><p>Test with a separate browser or phone using the real Guest Join link. Refresh Guest Hub if necessary. Do not test the host and guest path in the exact same browser session if you are trying to confirm independent attendance.</p></details>
+<details><summary>Guests can’t submit song requests/photos.</summary><p>Confirm the feature is turned on and that submissions are currently open. Song Requests and Photos can be closed independently even while other guest features remain available.</p></details>
+<details><summary>A Priority Request says payment unverified.</summary><p>That is intentional. Check your own payment account. Only click VERIFY + PRIORITIZE after you confirm the payment actually arrived.</p></details>
+<details><summary>I don’t want the venue to see my controls.</summary><p>Use Audience Display in a separate browser/window on the projector or venue TV. Keep the host application on your private DJ screen.</p></details>
+<details><summary>I’m not sure what activity to run next.</summary><p>Use Quick Launch for a known instant activity or Show Director when you want Cue the Crowd to recommend something based on time and room condition.</p></details>
+<details><summary>I need help from Cue the Crowd.</summary><p>Email <a href="mailto:jessica@cuethecrowdlive.com">jessica@cuethecrowdlive.com</a>.</p></details>
+</div>
+<a class="back" href="#top">↑ Back to top</a>
+</div></section>
+</main>
+
+<footer class="footer"><div class="wrap"><strong>CUE THE CROWD</strong><br>You run the show. We cue the crowd. · <a href="mailto:jessica@cuethecrowdlive.com">jessica@cuethecrowdlive.com</a></div></footer>
+</body>
+</html>
