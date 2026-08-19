@@ -15164,3 +15164,169 @@ guestListeners();
     boot();
   }
 })();
+
+// ======================================================
+// CUE THE CROWD — ROBUST LIVE TIPPING PATCH
+// Direct Firebase save/read so guest tipping does not depend
+// on localStorage synchronization timing between browsers.
+// ======================================================
+(function installRobustLiveTippingPatch() {
+
+  const enableButton = document.getElementById("enableGuestTipsButton");
+  const disableButton = document.getElementById("disableGuestTipsButton");
+
+  if (enableButton) {
+    enableButton.addEventListener("click", function () {
+      const event = getCurrentEvent();
+      if (!event || !event.id) return;
+
+      const businessField = document.getElementById("hostTipBusinessName");
+      const linkField = document.getElementById("hostTipPaymentLink");
+
+      const businessName = businessField ? businessField.value.trim() : "";
+      let paymentLink = linkField ? linkField.value.trim() : "";
+
+      if (!businessName || !paymentLink) return;
+
+      if (!/^https?:\/\//i.test(paymentLink)) {
+        paymentLink = "https://" + paymentLink;
+        if (linkField) linkField.value = paymentLink;
+      }
+
+      const eventCode = getGuestEventCode(event);
+      if (!eventCode) return;
+
+      const tipping = {
+        enabled: true,
+        businessName: businessName,
+        paymentLink: paymentLink
+      };
+
+      localStorage.setItem(
+        "guestTipping-" + event.id,
+        JSON.stringify(tipping)
+      );
+
+      eventDatabase
+        .ref("events/" + eventCode + "/tipping")
+        .set(tipping)
+        .then(function () {
+          console.log("Live tipping saved directly to Firebase.");
+        })
+        .catch(function (error) {
+          console.error("Live tipping save failed:", error);
+          alert("The tipping link could not be saved. Please try again.");
+        });
+    });
+  }
+
+  if (disableButton) {
+    disableButton.addEventListener("click", function () {
+      const event = getCurrentEvent();
+      if (!event || !event.id) return;
+
+      const eventCode = getGuestEventCode(event);
+      if (!eventCode) return;
+
+      const businessField = document.getElementById("hostTipBusinessName");
+      const linkField = document.getElementById("hostTipPaymentLink");
+
+      const tipping = {
+        enabled: false,
+        businessName: businessField ? businessField.value.trim() : "",
+        paymentLink: linkField ? linkField.value.trim() : ""
+      };
+
+      localStorage.setItem(
+        "guestTipping-" + event.id,
+        JSON.stringify(tipping)
+      );
+
+      eventDatabase
+        .ref("events/" + eventCode + "/tipping")
+        .set(tipping)
+        .catch(function (error) {
+          console.error("Live tipping disable sync failed:", error);
+        });
+    });
+  }
+
+  window.addEventListener("click", function (clickEvent) {
+    const tipButton =
+      clickEvent.target.closest &&
+      clickEvent.target.closest('.guest-view-action[data-feature="Tips"]');
+
+    if (!tipButton) return;
+
+    clickEvent.preventDefault();
+    clickEvent.stopPropagation();
+    clickEvent.stopImmediatePropagation();
+
+    const currentEvent = getCurrentEvent();
+    const joinCode =
+      new URLSearchParams(window.location.search).get("join") ||
+      (currentEvent && currentEvent.id
+        ? getGuestEventCode(currentEvent)
+        : "");
+
+    if (!joinCode) {
+      alert("This event could not be identified. Please reopen the guest link.");
+      return;
+    }
+
+    const paymentWindow = window.open("about:blank", "_blank");
+
+    eventDatabase
+      .ref("events/" + joinCode + "/tipping")
+      .once("value")
+      .then(function (snapshot) {
+        const tipping = snapshot.val();
+
+        if (!tipping || !tipping.enabled) {
+          if (paymentWindow) paymentWindow.close();
+          alert("Tipping is not enabled for this event.");
+          return;
+        }
+
+        if (!tipping.paymentLink) {
+          if (paymentWindow) paymentWindow.close();
+          alert("The host has not added a tipping payment link yet.");
+          return;
+        }
+
+        let paymentLink = String(tipping.paymentLink).trim();
+
+        if (!/^https?:\/\//i.test(paymentLink)) {
+          paymentLink = "https://" + paymentLink;
+        }
+
+        try {
+          new URL(paymentLink);
+        } catch (error) {
+          if (paymentWindow) paymentWindow.close();
+          alert("The host's tipping payment link is invalid.");
+          return;
+        }
+
+        if (currentEvent && currentEvent.id) {
+          localStorage.setItem(
+            "guestTipping-" + currentEvent.id,
+            JSON.stringify(tipping)
+          );
+        }
+
+        if (paymentWindow) {
+          paymentWindow.location.href = paymentLink;
+        } else {
+          window.location.href = paymentLink;
+        }
+      })
+      .catch(function (error) {
+        if (paymentWindow) paymentWindow.close();
+        console.error("Guest tipping lookup failed:", error);
+        alert("The tipping payment link could not be loaded. Please try again.");
+      });
+  }, true);
+
+})();
+
