@@ -5,11 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Cue the Crowd | Live Interactive Event Platform</title>
+  <title>Professional Event Platform</title>
 
-  <meta name="theme-color" content="#0b0d12">
-  <meta name="description" content="Cue the Crowd connects the entertainer, guest phones and venue display in one live interactive event platform.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230b0d12%27/%3E%3Cpath d=%27M16 20h32v24H16z%27 fill=%27none%27 stroke=%27%23d8b56a%27 stroke-width=%274%27/%3E%3Cpath d=%27M25 27h14M25 36h14%27 stroke=%27%23f2d89a%27 stroke-width=%274%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -22,16 +19,16 @@
     <div class="brand-area">
 
       <div class="brand-mark">
-        CTC
+        EP
       </div>
 
       <div class="brand-text">
 
         <span class="small-label">
-          CUE THE CROWD
+          PROFESSIONAL EVENT PLATFORM
         </span>
 
-        <h1>Cue the Crowd</h1>
+        <h1>Event Command Center</h1>
 
       </div>
 
@@ -45,8 +42,8 @@
         My Events
       </button>
 
-      <button class="small-button" onclick="window.open('instructions.html','_blank')">
-        Operator Guide
+      <button class="small-button">
+        Account
       </button>
 
     </div>
@@ -65,12 +62,12 @@
       <div class="hero">
 
         <span class="small-label">
-          LIVE INTERACTIVE EVENT PLATFORM
+          LIVE EVENT ENGAGEMENT & ENTERTAINMENT
         </span>
 
         <h2>
-          You run the show.<br>
-          We cue the crowd.
+          Build the room.<br>
+          Run the show.
         </h2>
 
         <p class="hero-copy">
@@ -262,7 +259,7 @@
           <input
             type="text"
             id="weddingEventName"
-            placeholder="Taylor & Morgan's Wedding">
+            placeholder="Emily & Jake's Wedding">
         </label>
 
         <br><br>
@@ -272,7 +269,7 @@
           <input
             type="text"
             id="partnerOne"
-            placeholder="Partner 1">
+            placeholder="Emily">
         </label>
 
         <br><br>
@@ -282,7 +279,7 @@
           <input
             type="text"
             id="partnerTwo"
-            placeholder="Partner 2">
+            placeholder="Jake">
         </label>
 
         <br><br>
@@ -554,7 +551,7 @@
         </button>
 
 
-        <button class="feature-panel event-hq-card" id="memoryButton" style="display:none;" aria-hidden="true">
+        <button class="feature-panel event-hq-card" id="memoryButton">
 
           <span class="small-label">EXPERIENCE</span>
 
@@ -1476,7 +1473,7 @@ LIVE GUEST FEATURES DASHBOARD
       <input
         type="text"
         id="hostPollQuestion"
-        placeholder="Who is more likely to hit the dance floor first?"
+        placeholder="Who is more likely to control the thermostat?"
         style="width:100%;margin-top:8px;"
       >
     </label>
@@ -1486,7 +1483,7 @@ LIVE GUEST FEATURES DASHBOARD
       <input
         type="text"
         id="hostPollChoiceOne"
-        placeholder="Choice 1"
+        placeholder="Emily"
         style="width:100%;margin-top:8px;"
       >
     </label>
@@ -1496,7 +1493,7 @@ LIVE GUEST FEATURES DASHBOARD
       <input
         type="text"
         id="hostPollChoiceTwo"
-        placeholder="Choice 2"
+        placeholder="Jake"
         style="width:100%;margin-top:8px;"
       >
     </label>
@@ -1547,6 +1544,9 @@ LIVE GUEST FEATURES DASHBOARD
   >
 
   <button id="launchPredictionButton" class="primary-button">
+  LAUNCH PREDICTION
+</button>
+  >
     LAUNCH PREDICTION
   </button>
 
@@ -1573,7 +1573,8 @@ LIVE GUEST FEATURES DASHBOARD
     TIPPING
   </span>
 
-  <h3>Guest Tipping</h3>
+    Guest Tipping
+  </h3>
 
   <p>
     Give guests an optional way to tip the entertainer from their phone.
@@ -1769,17 +1770,6 @@ LIVE GUEST FEATURES DASHBOARD
     >
 
   </label>
-
-  <div id="ctcPriorityPaymentConfig" class="ctc-priority-config" style="margin-top:18px;">
-    <span class="small-label">PRIORITY REQUEST PAYMENTS</span>
-    <h4>Priority payment link</h4>
-    <p>Paste the payment link guests should use for song boosts. A boost raises priority but never guarantees play; the DJ always has final say.</p>
-    <div class="ctc-priority-config-row">
-      <input id="ctcPriorityPaymentLink" type="url" placeholder="https://your-payment-link.com">
-      <button id="ctcPriorityPaymentSave" class="secondary-button" type="button">SAVE PAYMENT LINK</button>
-    </div>
-    <p id="ctcPriorityPaymentStatus" class="ctc-fineprint">No priority payment link saved.</p>
-  </div>
 
   <div class="main-actions" style="margin-top:18px;">
 
@@ -2009,17 +1999,17 @@ GUEST VIEW
 GUEST SONG REQUEST PANEL
 ================================================== -->
 
-<div
+
  <!-- ======================================================
      GUEST PREDICTION PANEL
 ====================================================== -->
 
-<div
+
 <!-- ======================================================
      GUEST SHOUTOUTS
 ====================================================== -->
 
-<div
+
 <!-- ======================================================
      GUEST BUZZER
 ====================================================== -->
@@ -2754,10 +2744,8 @@ GUEST PHOTO PANEL
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="firebase.js"></script>
 <script src="data.js"></script>
-<script src="license-gate.js"></script>
 <script src="app.js"></script>
 
 </body>
