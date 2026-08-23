@@ -6767,7 +6767,7 @@ new QRCode(qrContainer, {
   height: 260,
   colorDark: "#000000",
   colorLight: "#ffffff",
-  correctLevel: QRCode.CorrectLevel.H
+ correctLevel: QRCode.CorrectLevel.L
 });
 }
 const originalUpdateGuestJoinAccess =
