@@ -338,9 +338,5 @@
     makeGuide();
     refreshTrialUI();
 
-    const observer = new MutationObserver(function () {
-      refreshTrialUI();
-    });
-    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["class"] });
-  });
+   
 })();
