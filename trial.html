@@ -1,0 +1,2486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Cue the Crowd | Free DJ Trial</title>
+
+  <meta name="theme-color" content="#0b0d12">
+  <meta name="description" content="Cue the Crowd connects the entertainer, guest phones and venue display in one live interactive event platform.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230b0d12%27/%3E%3Cpath d=%27M16 20h32v24H16z%27 fill=%27none%27 stroke=%27%23d8b56a%27 stroke-width=%274%27/%3E%3Cpath d=%27M25 27h14M25 36h14%27 stroke=%27%23f2d89a%27 stroke-width=%274%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="app">
+
+  <header class="top-bar">
+
+    <div class="brand-area">
+
+      <div class="brand-mark">
+        CTC
+      </div>
+
+      <div class="brand-text">
+
+        <span class="small-label">
+          CUE THE CROWD
+        </span>
+
+        <h1>Cue the Crowd</h1>
+
+      </div>
+
+    </div>
+
+    <div class="top-actions">
+
+      <button
+        class="small-button"
+        id="topMyEventsButton">
+        My Events
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <!-- ==================================================
+    HOME
+    ================================================== -->
+
+    <section id="homeScreen" class="screen active">
+
+      <div class="hero">
+
+        <span class="small-label">
+          LIVE INTERACTIVE EVENT PLATFORM
+        </span>
+
+        <h2>
+          You run the show.<br>
+          We cue the crowd.
+        </h2>
+
+        <p class="hero-copy">
+          Create personalized interactive entertainment for weddings,
+          birthdays, reunions, corporate events, venues and live audiences.
+        </p>
+
+        <div class="main-actions">
+
+          <button
+            class="primary-button"
+            id="createEventButton">
+            + CREATE NEW EVENT
+          </button>
+
+          <button
+            class="secondary-button"
+            id="homeMyEventsButton">
+            MY EVENTS
+          </button>
+
+          <button class="secondary-button" id="homeQuickLaunchButton">
+            QUICK LAUNCH
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="home-panels">
+
+        <button class="feature-panel home-feature-card" id="homeEventDNACard">
+
+          <span class="small-label">
+            CREATE
+          </span>
+
+          <h3>Event DNA</h3>
+
+          <p>
+            Build the event once and personalize the entire experience.
+          </p>
+
+        </button>
+
+
+        <button class="feature-panel home-feature-card" id="homeShowBuilderCard">
+
+          <span class="small-label">
+            BUILD
+          </span>
+
+          <h3>Show Builder</h3>
+
+          <p>
+            Let the platform build your experience or choose exactly
+            what you want to run.
+          </p>
+
+        </button>
+
+
+        <button class="feature-panel home-feature-card" id="homeHostControlCard">
+
+          <span class="small-label">
+            RUN
+          </span>
+
+          <h3>Host Control</h3>
+
+          <p>
+            Manage the event privately while your audience sees
+            the polished presentation.
+          </p>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+    EVENT TYPE
+    ================================================== -->
+
+    <section id="eventSetupScreen" class="screen">
+
+      <div class="screen-heading">
+
+        <span class="small-label">
+          EVENT DNA
+        </span>
+
+        <h2>
+          What are we creating?
+        </h2>
+
+        <p>
+          Choose the type of event. The platform will customize
+          everything that comes next.
+        </p>
+
+      </div>
+
+
+      <div class="event-type-grid">
+
+        <button class="event-type" data-event="Wedding">
+          💍
+          <strong>Wedding</strong>
+        </button>
+
+        <button class="event-type" data-event="Birthday">
+          🎂
+          <strong>Birthday</strong>
+        </button>
+
+        <button class="event-type" data-event="Class Reunion">
+          🎓
+          <strong>Class Reunion</strong>
+        </button>
+
+        <button class="event-type" data-event="Corporate Event">
+          🏢
+          <strong>Corporate</strong>
+        </button>
+
+        <button class="event-type" data-event="Holiday Party">
+          ✨
+          <strong>Holiday Party</strong>
+        </button>
+
+        <button class="event-type" data-event="School Event">
+          🎉
+          <strong>School Event</strong>
+        </button>
+
+        <button class="event-type" data-event="Bar / Venue">
+          🍸
+          <strong>Bar / Venue</strong>
+        </button>
+
+        <button class="event-type" data-event="General Event">
+          🎊
+          <strong>General Event</strong>
+        </button>
+
+      </div>
+
+      <button
+        class="back-button"
+        id="backHomeButton">
+        ← BACK
+      </button>
+
+    </section>
+
+
+    <!-- ==================================================
+    WEDDING EVENT DNA
+    ================================================== -->
+
+    <section id="weddingFormScreen" class="screen">
+
+      <div class="screen-heading">
+
+        <span class="small-label">
+          EVENT DNA • WEDDING
+        </span>
+
+        <h2>
+          Build the wedding profile.
+        </h2>
+
+        <p>
+          Only the event name is required. Everything else is optional
+          and helps personalize the experience.
+        </p>
+
+      </div>
+
+
+      <div class="feature-panel">
+
+        <label>
+          Event Name
+          <input
+            type="text"
+            id="weddingEventName"
+            placeholder="Taylor & Morgan's Wedding">
+        </label>
+
+        <br><br>
+
+        <label>
+          Partner 1
+          <input
+            type="text"
+            id="partnerOne"
+            placeholder="Partner 1">
+        </label>
+
+        <br><br>
+
+        <label>
+          Partner 2
+          <input
+            type="text"
+            id="partnerTwo"
+            placeholder="Partner 2">
+        </label>
+
+        <br><br>
+
+        <label>
+          Wedding Date
+          <input
+            type="date"
+            id="weddingDate">
+        </label>
+
+        <br><br>
+
+        <label>
+          Approximate Guest Count
+          <input
+            type="number"
+            id="guestCount"
+            placeholder="150">
+        </label>
+
+        <br><br>
+
+        <label>
+          Guest Age Range
+          <input
+            type="text"
+            id="guestAgeRange"
+            placeholder="18–75">
+        </label>
+
+        <br><br>
+
+        <label>
+          Music Style / Important Artists
+          <input
+            type="text"
+            id="weddingMusic"
+            placeholder="80s, 90s, country, current hits">
+        </label>
+
+        <br><br>
+
+        <label>
+          Couple Story / Important Details
+          <textarea
+            id="coupleStory"
+            rows="6"
+            placeholder="How they met, proposal story, inside jokes, memories..."></textarea>
+        </label>
+
+        <br><br>
+
+        <label>
+          Topics or People to Avoid
+          <textarea
+            id="avoidTopics"
+            rows="4"
+            placeholder="Anything the entertainer should not mention."></textarea>
+        </label>
+
+        <br><br>
+
+        <div class="main-actions">
+
+          <button
+            class="primary-button"
+            id="saveWeddingButton">
+            SAVE EVENT
+          </button>
+
+          <button
+            class="secondary-button"
+            id="backToEventTypesButton">
+            ← BACK
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+    GENERIC EVENT DNA
+    ================================================== -->
+
+    <section id="genericEventDNAScreen" class="screen">
+
+      <div class="screen-heading">
+
+        <span class="small-label" id="genericDNATypeLabel">
+          EVENT DNA
+        </span>
+
+        <h2 id="genericDNATitle">
+          Build the event profile.
+        </h2>
+
+        <p>
+          Only the event name is required. Everything else helps the platform
+          personalize activities, recommendations and audience experiences.
+        </p>
+
+      </div>
+
+
+      <div class="feature-panel event-dna-form">
+
+        <label>
+          Event Name
+
+          <input
+            type="text"
+            id="genericEventName"
+            placeholder="Enter event name">
+        </label>
+
+
+        <label>
+          Approximate Guest Count
+
+          <input
+            type="number"
+            id="genericGuestCount"
+            placeholder="150">
+        </label>
+
+
+        <label>
+          Guest Age Range / Crowd Mix
+
+          <input
+            type="text"
+            id="genericGuestAgeRange"
+            placeholder="25–65, mixed ages">
+        </label>
+
+
+        <label>
+          Music / Entertainment Style
+
+          <input
+            type="text"
+            id="genericEventMusic"
+            placeholder="Pop, classics, dance, holiday music">
+        </label>
+
+
+        <label>
+          Event Details / Important Context
+
+          <textarea
+            id="genericEventStory"
+            rows="6"
+            placeholder="Theme, reason for celebrating, company or group details, traditions, inside jokes, goals..."></textarea>
+        </label>
+
+
+        <label>
+          Topics or Activities to Avoid
+
+          <textarea
+            id="genericAvoidTopics"
+            rows="4"
+            placeholder="Anything the entertainer should not mention or run."></textarea>
+        </label>
+
+
+        <div class="main-actions">
+
+          <button
+            class="primary-button"
+            id="saveGenericDNAButton">
+            SAVE EVENT
+          </button>
+
+          <button
+            class="secondary-button"
+            id="genericDNABackButton">
+            ← EVENT HQ
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+    EVENT HQ
+    ================================================== -->
+
+    <section id="eventHQScreen" class="screen">
+
+      <div class="screen-heading">
+
+        <span class="small-label">
+          EVENT HQ
+        </span>
+
+        <h2 id="eventHQTitle">
+          Your Event
+        </h2>
+
+        <p id="eventHQSubtitle">
+          Everything for this event lives here.
+        </p>
+
+      </div>
+
+
+      <div class="home-panels">
+
+        <button class="feature-panel event-hq-card" id="buildShowButton">
+
+          <span class="small-label">BUILD</span>
+
+          <h3>Build My Show</h3>
+
+          <p>
+            Let the platform create a complete experience,
+            or build one manually.
+          </p>
+
+        </button>
+
+
+        <button class="feature-panel event-hq-card" id="hostControlButton">
+
+          <span class="small-label">RUN</span>
+
+          <h3>Host Control</h3>
+
+          <p>
+            Run the live event privately while the audience sees
+            the polished presentation.
+          </p>
+
+        </button>
+
+
+        <button class="feature-panel event-hq-card" id="quickLaunchButton">
+
+          <span class="small-label">NOW</span>
+
+          <h3>Quick Launch</h3>
+
+          <p>
+            Launch an activity instantly without changing the planned show.
+          </p>
+
+        </button>
+
+
+        <button class="feature-panel event-hq-card" id="eventDNAButton">
+
+          <span class="small-label">PERSONALIZE</span>
+
+          <h3>Event DNA</h3>
+
+          <p>
+            Edit the crowd, music, stories and personalization for this event.
+          </p>
+
+        </button>
+
+
+        <button class="feature-panel event-hq-card" id="memoryButton" style="display:none;" aria-hidden="true">
+
+          <span class="small-label">EXPERIENCE</span>
+
+          <h3>Photos & Memories</h3>
+
+          <p>
+            Add optional photos, stories and personalized moments.
+          </p>
+
+        </button>
+
+<button class="feature-panel event-hq-card" id="guestHubButton">
+
+  <span class="small-label">CONNECT</span>
+
+  <h3>Guest Hub</h3>
+
+  <p>
+    Connect guests by QR code for live games, voting,
+    photos, requests, shoutouts, predictions and tipping.
+  </p>
+
+</button>
+        <button class="feature-panel event-hq-card" id="showDirectorButton">
+
+          <span class="small-label">RESCUE</span>
+
+          <h3>Show Director</h3>
+
+          <p>
+            Need 5, 10 or 20 minutes? Let the system choose what fits the room.
+          </p>
+
+        </button>
+
+      </div>
+
+
+      <button
+        class="back-button"
+        id="eventHQHomeButton">
+        ← HOME
+      </button>
+
+    </section>
+
+
+    <!-- ==================================================
+    SHOW BUILDER
+    ================================================== -->
+
+    <section id="showBuilderScreen" class="screen">
+
+      <div class="screen-heading">
+
+        <span class="small-label">
+          SHOW BUILDER
+        </span>
+
+        <h2>
+          Build the experience.
+        </h2>
+
+        <p>
+          Tell us what fits this event. The platform will create
+          a suggested show you can use or customize.
+        </p>
+
+      </div>
+
+
+      <div class="feature-panel">
+
+        <h3>How much time do you want to fill?</h3>
+
+        <div class="main-actions">
+
+          <button class="secondary-button show-length" data-length="10">10 MINUTES</button>
+          <button class="secondary-button show-length" data-length="20">20 MINUTES</button>
+          <button class="secondary-button show-length" data-length="30">30 MINUTES</button>
+          <button class="secondary-button show-length" data-length="45">45 MINUTES</button>
+          <button class="secondary-button show-length" data-length="60">60 MINUTES</button>
+          <button class="secondary-button show-length" data-length="90">90 MINUTES</button>
+
+        </div>
+
+      </div>
+
+
+      <div class="feature-panel" style="margin-top:16px;">
+
+        <h3>What kind of experience?</h3>
+
+        <p>Choose as many as you want.</p>
+
+        <div class="main-actions">
+
+          <button class="secondary-button experience-choice" data-experience="Competition">🏆 Competition</button>
+          <button class="secondary-button experience-choice" data-experience="Music">🎵 Music Heavy</button>
+          <button class="secondary-button experience-choice" data-experience="Crowd Participation">🙋 Crowd Participation</button>
+          <button class="secondary-button experience-choice" data-experience="Funny">😂 Funny</button>
+          <button class="secondary-button experience-choice" data-experience="Personalized">✨ Personalized</button>
+          <button class="secondary-button experience-choice" data-experience="Memories">❤️ Photos & Memories</button>
+          <button class="secondary-button experience-choice" data-experience="Movement">🔥 Get Them Moving</button>
+          <button class="secondary-button experience-choice" data-experience="Mixed">🎭 Mix It Up</button>
+
+        </div>
+
+      </div>
+
+
+      <div class="feature-panel" style="margin-top:16px;">
+
+        <h3>How competitive is this crowd?</h3>
+
+        <div class="main-actions">
+
+          <button class="secondary-button competition-level" data-level="Light">LIGHT & FUN</button>
+          <button class="secondary-button competition-level" data-level="Competitive">COMPETITIVE</button>
+          <button class="secondary-button competition-level" data-level="Savage">SAVAGE</button>
+
+        </div>
+
+      </div>
+
+
+      <div class="feature-panel" style="margin-top:16px;">
+
+        <h3>Participation preferences</h3>
+
+        <div class="main-actions">
+
+          <button class="secondary-button participation-choice" data-participation="Tables">Battle of the Tables</button>
+          <button class="secondary-button participation-choice" data-participation="Sides">Side vs. Side</button>
+          <button class="secondary-button participation-choice" data-participation="Individuals">Individual Players</button>
+          <button class="secondary-button participation-choice" data-participation="Whole Room">Whole Room</button>
+
+        </div>
+
+      </div>
+
+
+      <div class="feature-panel" style="margin-top:16px;">
+
+        <h3>Optional content</h3>
+
+        <p>Nothing here is required.</p>
+
+        <div class="main-actions">
+
+          <button class="secondary-button optional-choice" id="eventStoryOptionButton" data-option="Event Story">Event Story</button>
+          <button class="secondary-button optional-choice" data-option="Photos">Photos</button>
+          <button class="secondary-button optional-choice" data-option="Music Challenges">Music Challenges</button>
+          <button class="secondary-button optional-choice" data-option="Physical Challenges">Physical Challenges</button>
+          <button class="secondary-button optional-choice" data-option="Audience Phones">Audience Phones</button>
+
+        </div>
+
+      </div>
+
+
+      <div class="main-actions" style="margin-top:28px;">
+
+        <button class="primary-button" id="generateShowButton">
+          BUILD MY SHOW
+        </button>
+
+        <button class="secondary-button" id="manualShowButton">
+          BUILD MANUALLY
+        </button>
+
+        <button class="back-button" id="backToHQButton">
+          ← EVENT HQ
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+    GENERATED SHOW
+    ================================================== -->
+
+    <section id="generatedShowScreen" class="screen">
+
+      <div class="screen-heading">
+
+        <span class="small-label">
+          GENERATED SHOW
+        </span>
+
+        <h2 id="generatedShowTitle">
+          Your Event Experience
+        </h2>
+
+        <p id="generatedShowSummary">
+          A suggested run-of-show based on your selections.
+        </p>
+
+      </div>
+
+      <div id="generatedShowList"></div>
+
+
+      <div class="main-actions" style="margin-top:28px;">
+
+        <button class="primary-button" id="acceptShowButton">
+          USE THIS SHOW
+        </button>
+
+        <button class="secondary-button" id="rebuildShowButton">
+          REBUILD
+        </button>
+
+        <button class="secondary-button" id="backToShowBuilderButton">
+          ← SHOW BUILDER
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+    HOST CONTROL
+    ================================================== -->
+
+    <section id="hostControlScreen" class="screen">
+
+      <div class="screen-heading">
+
+        <span class="small-label">
+          HOST CONTROL
+        </span>
+
+        <h2 id="hostControlTitle">
+          Live Show
+        </h2>
+
+        <p>
+          Your private control room.
+        </p>
+
+      </div>
+
+
+      <div class="feature-panel">
+
+        <span class="small-label">
+          CURRENT SEGMENT
+        </span>
+
+        <h3 id="hostCurrentSegment">
+          No segment loaded
+        </h3>
+
+        <p id="hostCurrentDescription">
+          Build and save a show first.
+        </p>
+
+      </div>
+
+
+      <div class="home-panels" style="margin-top:16px;">
+
+        <div class="feature-panel">
+
+          <span class="small-label">
+            SHOW POSITION
+          </span>
+
+          <h3 id="hostSegmentPosition">
+            0 of 0
+          </h3>
+
+          <p>
+            Move through the planned show without losing your place.
+          </p>
+
+        </div>
+
+
+        <div class="feature-panel">
+
+          <span class="small-label">
+            COMING NEXT
+          </span>
+
+          <h3 id="hostNextSegment">
+            —
+          </h3>
+
+          <p>
+            Preview the next scheduled experience.
+          </p>
+
+        </div>
+
+
+        <div class="feature-panel">
+
+          <span class="small-label">
+            LIVE TOOLS
+          </span>
+
+          <h3>Quick Control</h3>
+
+          <p>
+            Skip, quick launch, or return to the planned show.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="main-actions" style="margin-top:26px;">
+
+        <button class="secondary-button" id="previousSegmentButton">
+          ← PREVIOUS
+        </button>
+
+        <button class="primary-button" id="launchSegmentButton">
+          LAUNCH CURRENT SEGMENT
+        </button>
+
+        <button class="secondary-button" id="nextSegmentButton">
+          NEXT →
+        </button>
+
+        <button class="secondary-button" id="hostQuickLaunchButton">
+          QUICK LAUNCH
+        </button>
+
+        <button class="back-button" id="hostBackToHQButton">
+          ← EVENT HQ
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+    
+
+<!-- ==================================================
+AUDIENCE DISPLAY
+================================================== -->
+
+<section id="audienceScreen" class="screen audience-screen">
+
+  <div class="audience-content">
+
+    <span class="small-label">
+      LIVE EXPERIENCE
+    </span>
+
+    <h2 id="audienceEventName">
+      EVENT NAME
+    </h2>
+
+    <div class="audience-divider"></div>
+
+    <p class="audience-now-label">
+      NOW PLAYING
+    </p>
+
+    <h3 id="audienceSegmentTitle">
+      Ready When You Are
+    </h3>
+
+    <p id="audienceSegmentMessage">
+      The next experience will begin shortly.
+    </p>
+
+
+    <!-- TWO-TEAM AUDIENCE SCOREBOARD -->
+
+    <div
+      id="audienceScoreboard"
+      style="
+        display:none;
+        margin-top:32px;
+        gap:18px;
+        justify-content:center;
+        flex-wrap:wrap;
+      "
+    >
+
+      <div
+        class="feature-panel"
+        style="
+          min-width:220px;
+          text-align:center;
+        "
+      >
+
+        <span
+          class="small-label"
+          id="audienceTeamAName"
+        >
+          TEAM A
+        </span>
+
+        <h3
+          id="audienceTeamAScore"
+          style="
+            font-size:54px;
+            margin:12px 0 0;
+          "
+        >
+          0
+        </h3>
+
+      </div>
+
+
+      <div
+        class="feature-panel"
+        style="
+          min-width:220px;
+          text-align:center;
+        "
+      >
+
+        <span
+          class="small-label"
+          id="audienceTeamBName"
+        >
+          TEAM B
+        </span>
+
+        <h3
+          id="audienceTeamBScore"
+          style="
+            font-size:54px;
+            margin:12px 0 0;
+          "
+        >
+          0
+        </h3>
+
+      </div>
+
+    </div>
+
+
+    <!-- MULTI-TEAM AUDIENCE SCOREBOARD -->
+
+    <div
+      id="audienceMultiTeamScoreboard"
+      style="
+        display:none;
+        margin-top:32px;
+      "
+    >
+
+      <div
+        id="audienceLeaderBox"
+        class="feature-panel"
+        style="
+          max-width:520px;
+          margin:0 auto 20px;
+          text-align:center;
+        "
+      >
+
+        <span class="small-label">
+          CURRENT LEADER
+        </span>
+
+        <h3
+          id="audienceLeaderName"
+          style="
+            font-size:34px;
+            margin:10px 0 4px;
+          "
+        >
+          No leader yet
+        </h3>
+
+        <p id="audienceLeaderScore">
+          Scores are tied at 0.
+        </p>
+
+      </div>
+
+
+      <div
+        id="audienceMultiTeamScoreList"
+        style="
+          display:flex;
+          justify-content:center;
+          gap:18px;
+          flex-wrap:wrap;
+        "
+      >
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <button
+    class="back-button"
+    id="audienceBackButton"
+  >
+    ← HOST CONTROL
+  </button>
+
+</section>
+    <!-- ==================================================
+    QUICK LAUNCH
+    ================================================== -->
+
+    <section id="quickLaunchScreen" class="screen">
+
+      <div class="screen-heading">
+
+        <span class="small-label">
+          QUICK LAUNCH
+        </span>
+
+        <h2>
+          Need something right now?
+        </h2>
+
+        <p>
+          Launch a standalone audience experience without changing
+          the planned show.
+        </p>
+
+      </div>
+
+
+      <div class="event-type-grid">
+
+        <button class="event-type quick-activity" data-activity="Crowd Pulse">
+          🙋
+          <strong>Crowd Pulse</strong>
+        </button>
+
+        <button class="event-type quick-activity" data-activity="Battle of the Tables">
+          🏆
+          <strong>Battle of the Tables</strong>
+        </button>
+
+        <button class="event-type quick-activity" data-activity="Side vs. Side">
+          ⚔️
+          <strong>Side vs. Side</strong>
+        </button>
+
+        <button class="event-type quick-activity" data-activity="Music Showdown">
+          🎵
+          <strong>Music Showdown</strong>
+        </button>
+
+        <button class="event-type quick-activity" data-activity="Generation Battle">
+          🔥
+          <strong>Generation Battle</strong>
+        </button>
+
+        <button class="event-type quick-activity" data-activity="Couple Spotlight">
+          ❤️
+          <strong>Couple Spotlight</strong>
+        </button>
+
+        <button class="event-type quick-activity" data-activity="Quick Laugh">
+          😂
+          <strong>Quick Laugh</strong>
+        </button>
+
+        <button class="event-type quick-activity" data-activity="Room Rescue">
+          ⚡
+          <strong>Room Rescue</strong>
+        </button>
+
+      </div>
+
+
+      <div class="main-actions" style="margin-top:28px;">
+
+        <button class="back-button" id="quickLaunchBackButton">
+          ← EVENT HQ
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+    MY EVENTS
+    ================================================== -->
+
+    <section id="myEventsScreen" class="screen">
+
+      <div class="screen-heading">
+
+        <span class="small-label">
+          EVENT LIBRARY
+        </span>
+
+        <h2>
+          My Events
+        </h2>
+
+        <p>
+          Create, reopen and manage your upcoming and past events.
+        </p>
+
+      </div>
+
+
+      <div class="main-actions">
+
+        <button class="primary-button" id="myEventsCreateButton">
+          + CREATE NEW EVENT
+        </button>
+
+        <button class="secondary-button selected-choice" id="upcomingEventsButton">
+          UPCOMING
+        </button>
+
+        <button class="secondary-button" id="pastEventsButton">
+          PAST
+        </button>
+
+        <button class="secondary-button" id="templatesButton">
+          TEMPLATES
+        </button>
+
+      </div>
+
+
+      <div id="eventsLibrary" style="margin-top:28px;"></div>
+
+
+      <button
+        class="back-button"
+        id="myEventsHomeButton">
+        ← HOME
+      </button>
+
+    </section>
+
+
+    <!-- ==================================================
+    TEMPLATES
+    ================================================== -->
+
+    <section id="templatesScreen" class="screen">
+
+      <div class="screen-heading">
+
+        <span class="small-label">
+          SHOW TEMPLATES
+        </span>
+
+        <h2>
+          Templates
+        </h2>
+
+        <p>
+          Save your best setups and reuse them without starting from scratch.
+        </p>
+
+      </div>
+
+
+      <div id="templatesLibrary"></div>
+
+
+      <button
+        class="back-button"
+        id="templatesBackButton">
+        ← MY EVENTS
+      </button>
+
+    </section>
+
+<!-- ==================================================
+GUEST HUB
+================================================== -->
+
+<section id="guestHubScreen" class="screen">
+
+  <div class="screen-heading">
+    <span class="small-label">GUEST EXPERIENCE</span>
+    <h2>Guest Hub</h2>
+    <p>
+      One QR code gives guests access to everything the entertainer
+      activates during the event.
+    </p>
+  </div>
+
+  <div class="home-panels">
+
+    <div class="feature-panel">
+      <span class="small-label">EVENT CONNECTION</span>
+      <h3 id="guestHubEventName">Current Event</h3>
+      <p>Guests scan once and stay connected throughout the event.</p>
+    </div>
+
+    <div class="feature-panel">
+      <span class="small-label">GUESTS CONNECTED</span>
+      <h3 id="guestConnectedCount">0</h3>
+      <p>Live guest participation will appear here.</p>
+    </div>
+
+    <div class="feature-panel">
+      <span class="small-label">GUEST ACCESS</span>
+      <h3 id="guestEventCode">EVENT CODE</h3>
+      <p>The QR code and browser join link will be generated here.</p>
+    </div>
+
+    <!-- ==================================================
+GUEST JOIN / QR ACCESS
+================================================== -->
+
+<div
+  class="feature-panel"
+  style="margin-top:18px;"
+>
+
+  <span class="small-label">
+    GUEST JOIN
+  </span>
+
+  <h3>
+    Join This Event
+  </h3>
+
+  <p>
+    Guests scan the QR code or enter the event code.
+    No app download required.
+  </p>
+
+  <div
+    id="guestJoinQRCode"
+    style="
+      width:220px;
+      min-height:220px;
+      margin:18px auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:white;
+      border-radius:14px;
+      padding:10px;
+    "
+  >
+    <span style="color:#111;">
+      QR CODE
+    </span>
+  </div>
+
+  <p style="text-align:center;">
+    Event Code:
+    <strong id="guestJoinEventCode">
+      EVENT CODE
+    </strong>
+  </p>
+
+  <p
+    id="guestJoinURL"
+    style="
+      text-align:center;
+      word-break:break-all;
+      margin-top:10px;
+    "
+  >
+    Join link will appear here.
+  </p>
+
+  <div
+    class="main-actions"
+    style="
+      margin-top:16px;
+      justify-content:center;
+    "
+  >
+
+    <button
+      class="secondary-button"
+      id="copyGuestJoinLinkButton">
+      COPY JOIN LINK
+    </button>
+
+  </div>
+
+</div>
+
+  </div>
+
+  <div class="feature-panel" style="margin-top:18px;">
+
+    <span class="small-label">AVAILABLE TO GUESTS</span>
+    <h3>Guest Experience Controls</h3>
+    <p>Turn features on or off for this event.</p>
+
+    <div class="main-actions" style="margin-top:18px;">
+      <button class="secondary-button guest-feature-button" data-feature="Live Games">🎮 LIVE GAMES</button>
+      <button class="secondary-button guest-feature-button" data-feature="Voting">🗳️ VOTING</button>
+      <button class="secondary-button guest-feature-button" data-feature="Photos">📸 PHOTOS</button>
+      <button class="secondary-button guest-feature-button" data-feature="Song Requests">🎵 SONG REQUESTS</button>
+      <button class="secondary-button guest-feature-button" data-feature="Shoutouts">💬 SHOUTOUTS</button>
+      <button class="secondary-button guest-feature-button" data-feature="Predictions">🔮 PREDICTIONS</button>
+      <button class="secondary-button guest-feature-button" data-feature="Buzzer">⚡ BUZZER</button>
+      <button class="secondary-button guest-feature-button" data-feature="Tips">💵 TIPPING</button>
+    </div>
+
+  </div>
+
+  <div class="feature-panel" style="margin-top:18px;">
+    <span class="small-label">WHAT GUESTS SEE RIGHT NOW</span>
+    <h3 id="guestHubLiveStatus">Waiting for the host.</h3>
+    <p id="guestHubLiveMessage">
+      When an activity is launched, the Guest Hub will automatically
+      change to the correct interaction.
+    </p>
+  </div>
+
+  <div class="feature-panel" style="margin-top:18px;">
+  <span class="small-label">LIVE ATTENDANCE</span>
+
+  <h3>
+    <span id="connectedGuestCount">0</span>
+    Guests Connected
+  </h3>
+
+  <p>
+    Live count of guest devices currently connected to this event.
+  </p>
+</div>
+ 
+  
+<!-- ======================================================
+     LIVE ACTIVITY
+====================================================== -->
+
+<div
+  class="feature-panel"
+  style="margin-top:18px;"
+>
+
+  <span class="small-label">
+    LIVE ACTIVITY
+  </span>
+
+  <h3>
+    Event Feed
+  </h3>
+
+  <div id="hostLiveActivityFeed" style="margin-top:14px;">
+    <p>No recent guest activity.</p>
+  </div>
+
+</div>
+  <!-- ==================================================
+LIVE GUEST FEATURES DASHBOARD
+================================================== -->
+
+<div
+  class="feature-panel"
+  style="margin-top:18px;"
+>
+
+  <span class="small-label">
+    LIVE GUEST FEATURES
+  </span>
+
+  <h3>
+    Event Status
+  </h3>
+
+  <div style="margin-top:14px;">
+
+    <p>
+      🗳️ Voting:
+      <strong id="dashboardVotingStatus">OFF</strong>
+    </p>
+
+    <p>
+      🔮 Predictions:
+      <strong id="dashboardPredictionsStatus">OFF</strong>
+    </p>
+
+    <p>
+      🎵 Song Requests:
+      <strong id="dashboardSongRequestsStatus">CLOSED</strong>
+    </p>
+
+    <p>
+      📸 Photo Submissions:
+      <strong id="dashboardPhotosStatus">CLOSED</strong>
+    </p>
+
+    <p>
+      💵 Tipping:
+      <strong id="dashboardTippingStatus">DISABLED</strong>
+    </p>
+
+  </div>
+
+</div>
+
+  <div class="feature-panel" style="margin-top:18px;">
+
+    <span class="small-label">LIVE POLL CONTROL</span>
+    <h3>Launch a guest vote</h3>
+    <p>Enter a question and two answer choices, then send it to connected guests.</p>
+
+    <label style="display:block;margin-top:18px;">
+      Poll Question
+      <input
+        type="text"
+        id="hostPollQuestion"
+        placeholder="Who is more likely to hit the dance floor first?"
+        style="width:100%;margin-top:8px;"
+      >
+    </label>
+
+    <label style="display:block;margin-top:14px;">
+      Choice 1
+      <input
+        type="text"
+        id="hostPollChoiceOne"
+        placeholder="Choice 1"
+        style="width:100%;margin-top:8px;"
+      >
+    </label>
+
+    <label style="display:block;margin-top:14px;">
+      Choice 2
+      <input
+        type="text"
+        id="hostPollChoiceTwo"
+        placeholder="Choice 2"
+        style="width:100%;margin-top:8px;"
+      >
+    </label>
+
+    <div class="main-actions" style="margin-top:18px;">
+      <button class="primary-button" id="launchGuestPollButton">LAUNCH POLL</button>
+      <button class="secondary-button" id="clearGuestPollButton">CLEAR POLL</button>
+    </div>
+
+    <div id="hostPollStatus" style="display:none;margin-top:18px;">
+      <span class="small-label">CURRENT LIVE POLL</span>
+      <h3 id="hostPollLiveQuestion">—</h3>
+      <p id="hostPollLiveChoices">—</p>
+    </div>
+    <!-- ======================================================
+     LIVE PREDICTIONS
+====================================================== -->
+
+<div class="feature-panel" id="hostPredictionPanel" style="margin-top:18px;">
+
+  <span class="small-label">LIVE PREDICTIONS</span>
+
+  <h3>Launch a Prediction</h3>
+
+  <p>
+    Ask guests what they think will happen next.
+  </p>
+
+  <input
+    type="text"
+    id="hostPredictionQuestion"
+    placeholder="Example: Who will catch the bouquet?"
+    style="width:100%;margin-top:12px;"
+  >
+
+  <input
+    type="text"
+    id="hostPredictionChoiceOne"
+    placeholder="Choice 1"
+    style="width:100%;margin-top:10px;"
+  >
+
+  <input
+    type="text"
+    id="hostPredictionChoiceTwo"
+    placeholder="Choice 2"
+    style="width:100%;margin-top:10px;"
+  >
+
+  <button id="launchPredictionButton" class="primary-button">
+    LAUNCH PREDICTION
+  </button>
+
+  <div
+    id="hostPredictionStatus"
+    style="display:none;margin-top:18px;"
+  >
+    <span class="small-label">CURRENT PREDICTION</span>
+
+    <h3 id="hostPredictionLiveQuestion">—</h3>
+
+    <p id="hostPredictionLiveChoices">—</p>
+  </div>
+
+</div>
+
+  </div>
+<div
+  class="feature-panel"
+  style="margin-top:18px;"
+>
+
+  <span class="small-label">
+    TIPPING
+  </span>
+
+  <h3>Guest Tipping</h3>
+
+  <p>
+    Give guests an optional way to tip the entertainer from their phone.
+  </p>
+
+  <label style="display:block;margin-top:18px;">
+    Entertainer / Business Name
+
+    <input
+      type="text"
+      id="hostTipBusinessName"
+      placeholder="DJ Mike Entertainment"
+      style="width:100%;margin-top:8px;"
+    >
+
+  </label>
+
+  <label style="display:block;margin-top:14px;">
+    Payment Link
+
+    <input
+      type="text"
+      id="hostTipPaymentLink"
+      placeholder="Paste payment link here"
+      style="width:100%;margin-top:8px;"
+    >
+
+  </label>
+
+  <div
+    class="main-actions"
+    style="margin-top:18px;"
+  >
+
+    <button
+      class="primary-button"
+      id="enableGuestTipsButton">
+      ENABLE TIPPING
+    </button>
+
+    <button
+      class="secondary-button"
+      id="disableGuestTipsButton">
+      DISABLE
+    </button>
+
+  </div>
+
+  <div
+    id="hostTipStatus"
+    style="display:none;margin-top:18px;"
+  >
+
+    <span class="small-label">
+      TIPPING ACTIVE
+    </span>
+
+    <h3 id="hostTipBusinessDisplay">
+      —
+    </h3>
+
+    <p>
+      Guests will see the Tip option in their Guest View.
+    </p>
+
+  </div>
+
+</div>
+<!-- ======================================================
+     HOST SHOUTOUT INBOX
+====================================================== -->
+
+<div
+<!-- ======================================================
+     HOST LIVE BUZZER
+====================================================== -->
+
+<div
+  id="hostBuzzerPanel"
+  class="feature-panel"
+  style="margin-top:18px;"
+>
+
+  <span class="small-label">
+    LIVE BUZZER
+  </span>
+
+  <h3>
+    Fastest Finger
+  </h3>
+
+  <p>
+    Open the buzzer and see which guest gets there first.
+  </p>
+
+  <input
+    type="text"
+    id="hostBuzzerPrompt"
+    placeholder="Example: Name that song!"
+    maxlength="100"
+    style="width:100%;margin-top:12px;"
+  >
+
+  <div
+    class="main-actions"
+    style="margin-top:14px;"
+  >
+
+    <button
+      id="openBuzzerButton"
+      class="primary-button">
+      OPEN BUZZER
+    </button>
+
+    <button
+      id="resetBuzzerButton"
+      class="secondary-button">
+      RESET
+    </button>
+
+  </div>
+
+  <div
+    id="hostBuzzerStatus"
+    style="margin-top:18px;"
+  >
+
+    <span class="small-label">
+      BUZZER STATUS
+    </span>
+
+    <h3 id="hostBuzzerWinner">
+      Buzzer closed.
+    </h3>
+
+   <p id="hostBuzzerStatusMessage">
+  Open the buzzer when you're ready for guests.
+</p>
+  </div>
+
+</div>
+  <div
+  id="hostShoutoutPanel"
+  class="feature-panel"
+  style="margin-top:18px;"
+>
+
+  <span class="small-label">
+    SHOUTOUT INBOX
+  </span>
+
+  <h3>
+    Guest Shoutouts
+  </h3>
+
+  <p>
+    Review guest messages before using them during the event.
+  </p>
+
+  <div
+    id="hostShoutoutInbox"
+    style="margin-top:16px;"
+  >
+    <p>No shoutouts yet.</p>
+  </div>
+
+</div>
+<div
+  class="feature-panel"
+  style="margin-top:18px;"
+>
+
+  <span class="small-label">
+    SONG REQUESTS
+  </span>
+
+  <h3>
+    Guest Song Requests
+  </h3>
+
+  <p>
+    Let guests send song requests directly from their phone.
+  </p>
+
+  <label style="display:block;margin-top:18px;">
+    Request Prompt
+
+    <input
+      type="text"
+      id="hostSongRequestPrompt"
+      placeholder="What song do you want to hear?"
+      style="width:100%;margin-top:8px;"
+    >
+
+  </label>
+
+  <div id="ctcPriorityPaymentConfig" class="ctc-priority-config" style="margin-top:18px;">
+    <span class="small-label">PRIORITY REQUEST PAYMENTS</span>
+    <h4>Priority payment link</h4>
+    <p>Paste the payment link guests should use for song boosts. A boost raises priority but never guarantees play; the DJ always has final say.</p>
+    <div class="ctc-priority-config-row">
+      <input id="ctcPriorityPaymentLink" type="url" placeholder="https://your-payment-link.com">
+      <button id="ctcPriorityPaymentSave" class="secondary-button" type="button">SAVE PAYMENT LINK</button>
+    </div>
+    <p id="ctcPriorityPaymentStatus" class="ctc-fineprint">No priority payment link saved.</p>
+  </div>
+
+  <div class="main-actions" style="margin-top:18px;">
+
+    <button
+      class="primary-button"
+      id="enableSongRequestsButton">
+      OPEN REQUESTS
+    </button>
+
+    <button
+      class="secondary-button"
+      id="disableSongRequestsButton">
+      CLOSE REQUESTS
+    </button>
+
+  </div>
+
+  <div
+    id="hostSongRequestStatus"
+    style="display:none;margin-top:18px;"
+  >
+
+    <span class="small-label">
+      REQUESTS OPEN
+    </span>
+
+    <h3 id="hostSongRequestLivePrompt">
+      —
+    </h3>
+
+    <p>
+      Guest requests will appear in the host request queue.
+    </p>
+
+    <div id="hostSongRequestInbox"></div>
+
+  </div>
+
+</div>
+
+<div
+  class="feature-panel"
+  style="margin-top:18px;"
+>
+
+  <span class="small-label">
+    GUEST PHOTOS
+  </span>
+
+  <h3>
+    Photo Submissions
+  </h3>
+
+  <p>
+    Let guests submit photos from their phones during the event.
+  </p>
+
+  <label style="display:block;margin-top:18px;">
+    Photo Prompt
+
+    <input
+      type="text"
+      id="hostPhotoPrompt"
+      placeholder="Share your favorite photo from tonight!"
+      style="width:100%;margin-top:8px;"
+    >
+
+  </label>
+
+  <div class="main-actions" style="margin-top:18px;">
+
+    <button
+      class="primary-button"
+      id="openPhotoSubmissionsButton">
+      OPEN PHOTO SUBMISSIONS
+    </button>
+
+    <button
+      class="secondary-button"
+      id="closePhotoSubmissionsButton">
+      CLOSE
+    </button>
+
+  </div>
+
+  <div
+    id="hostPhotoStatus"
+    style="display:none;margin-top:18px;"
+  >
+
+    <span class="small-label">
+      PHOTO SUBMISSIONS OPEN
+    </span>
+
+    <h3 id="hostPhotoLivePrompt">
+      —
+    </h3>
+
+    <p>
+      Guest photos will appear here for host review.
+    </p>
+
+    <div id="hostPhotoInbox"></div>
+
+    <div
+  class="main-actions"
+  style="margin-top:18px;"
+>
+
+  <button
+    class="primary-button"
+    id="openApprovedGalleryButton">
+    OPEN APPROVED PHOTO GALLERY
+  </button>
+
+</div>
+
+<div
+  id="approvedPhotoGallery"
+  class="feature-panel"
+  style="
+    display:none;
+    margin-top:18px;
+  "
+>
+
+  <span class="small-label">
+    APPROVED PHOTO GALLERY
+  </span>
+
+  <h3>
+    Event Photo Gallery
+  </h3>
+
+  <div
+    id="approvedPhotoGalleryGrid"
+    style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:14px;
+      margin-top:18px;
+    "
+  ></div>
+
+  <div class="main-actions" style="margin-top:18px;">
+
+    <button
+      class="secondary-button"
+      id="closeApprovedGalleryButton">
+      CLOSE GALLERY
+    </button>
+
+  </div>
+
+</div>
+
+  </div>
+
+</div>
+  <div class="main-actions" style="margin-top:26px;">
+    <button class="primary-button" id="guestHubPreviewButton">PREVIEW GUEST VIEW</button>
+    <button class="back-button" id="guestHubBackButton">← EVENT HQ</button>
+  </div>
+
+</section>
+
+<!-- ==================================================
+GUEST VIEW
+================================================== -->
+
+<section id="guestViewScreen" class="screen">
+
+  <div class="screen-heading">
+    <span class="small-label">GUEST EXPERIENCE</span>
+    <h2 id="guestViewEventName">Welcome</h2>
+    <p>You are connected to the live event.</p>
+  </div>
+
+  <div class="feature-panel" style="max-width:700px;margin:0 auto;text-align:center;">
+    <span class="small-label">EVENT CODE</span>
+    <h3 id="guestViewEventCode" style="font-size:40px;margin:12px 0;">EVENT CODE</h3>
+    <p id="guestViewStatus">Waiting for the host to start something.</p>
+  </div>
+
+  <div class="feature-panel" style="max-width:700px;margin:18px auto 0;">
+    <span class="small-label">AVAILABLE NOW</span>
+    <h3>What would you like to do?</h3>
+    <div id="guestViewActions" class="main-actions" style="margin-top:18px;justify-content:center;">
+      <button class="secondary-button guest-view-action" data-feature="Live Games">🎮 LIVE GAMES</button>
+      <button class="secondary-button guest-view-action" data-feature="Voting">🗳️ VOTING</button>
+      <button class="secondary-button guest-view-action" data-feature="Photos">📸 PHOTOS</button>
+      <button class="secondary-button guest-view-action" data-feature="Song Requests">🎵 SONG REQUESTS</button>
+      <button class="secondary-button guest-view-action" data-feature="Shoutouts">💬 SHOUTOUTS</button>
+      <button class="secondary-button guest-view-action" data-feature="Predictions">🔮 PREDICTIONS</button>
+      <button class="secondary-button guest-view-action" data-feature="Buzzer">⚡ BUZZER</button>
+      <button class="secondary-button guest-view-action" data-feature="Tips">💵 TIP</button>
+    </div>
+  </div>
+
+  <div class="feature-panel" style="max-width:700px;margin:18px auto 0;text-align:center;">
+    <span class="small-label">LIVE NOW</span>
+    <h3 id="guestViewLiveTitle">Nothing live yet</h3>
+    <p id="guestViewLiveMessage">When the host launches a poll, game, prediction or challenge, it will appear here automatically.</p>
+
+    <div id="guestVotingPanel" style="display:none;margin-top:24px;text-align:left;">
+      <span class="small-label">LIVE VOTE</span>
+      <h3 id="guestVoteQuestion">Live poll</h3>
+      <div id="guestVoteChoices" class="main-actions" style="margin-top:18px;justify-content:center;">
+        <button class="secondary-button guest-vote-choice" data-choice="choiceOne">CHOICE 1</button>
+        <button class="secondary-button guest-vote-choice" data-choice="choiceTwo">CHOICE 2</button>
+      </div>
+      <p id="guestVoteConfirmation" style="display:none;text-align:center;margin-top:18px;color:var(--gold-light);font-weight:bold;">Vote submitted!</p>
+    </div>
+  </div>
+
+  <div id="guestPredictionPanel" class="feature-panel" style="display:none;max-width:700px;margin:18px auto 0;">
+    <span class="small-label">LIVE PREDICTION</span>
+    <h3 id="guestPredictionQuestion">Prediction</h3>
+    <div class="main-actions" style="margin-top:16px;justify-content:center;">
+      <button class="primary-button guest-prediction-choice" id="guestPredictionChoiceOne">Choice 1</button>
+      <button class="primary-button guest-prediction-choice" id="guestPredictionChoiceTwo">Choice 2</button>
+    </div>
+    <p id="guestPredictionConfirmation" style="display:none;text-align:center;margin-top:14px;font-weight:bold;">Prediction submitted!</p>
+  </div>
+
+  <div id="guestShoutoutPanel" class="feature-panel" style="display:none;max-width:700px;margin:18px auto 0;">
+    <span class="small-label">SEND A SHOUTOUT</span>
+    <h3>Say Something 🎤</h3>
+    <p>Send a message to the DJ for a birthday, celebration, dedication, or special moment.</p>
+    <input type="text" id="guestShoutoutName" placeholder="Your name (optional)" maxlength="50" style="width:100%;margin-top:12px;">
+    <textarea id="guestShoutoutMessage" placeholder="Type your shoutout..." maxlength="250" rows="4" style="width:100%;margin-top:10px;"></textarea>
+    <button id="submitGuestShoutoutButton" class="primary-button" style="margin-top:12px;">SEND SHOUTOUT</button>
+    <p id="guestShoutoutConfirmation" style="display:none;margin-top:14px;font-weight:bold;text-align:center;">Shoutout sent!</p>
+  </div>
+
+  <div id="guestBuzzerPanel" class="feature-panel" style="display:none;max-width:700px;margin:18px auto 0;text-align:center;">
+    <span class="small-label">LIVE BUZZER</span>
+    <h3 id="guestBuzzerPrompt">Ready to buzz in?</h3>
+    <p>Enter your name, then be the first to hit the buzzer.</p>
+    <input type="text" id="guestBuzzerName" placeholder="Your name" maxlength="50" style="width:100%;margin-top:12px;">
+    <button id="guestBuzzButton" class="primary-button" style="width:100%;min-height:100px;margin-top:16px;font-size:28px;font-weight:bold;">⚡ BUZZ! ⚡</button>
+    <p id="guestBuzzerStatus" style="display:none;margin-top:16px;font-weight:bold;">Waiting...</p>
+  </div>
+
+  <div id="guestPhotoPanel" class="feature-panel" style="display:none;max-width:700px;margin:18px auto 0;">
+    <span class="small-label">SHARE A PHOTO</span>
+    <h3 id="guestPhotoPrompt">Share your favorite photo from tonight!</h3>
+    <input type="file" id="guestPhotoInput" accept="image/*" style="width:100%;margin-top:14px;">
+    <div class="main-actions" style="margin-top:14px;">
+      <button class="primary-button" id="submitGuestPhotoButton">SEND PHOTO</button>
+    </div>
+    <p id="guestPhotoConfirmation" style="display:none;text-align:center;margin-top:14px;font-weight:bold;">Photo submitted!</p>
+  </div>
+
+  <div id="guestSongRequestPanel" class="feature-panel" style="display:none;max-width:700px;margin:18px auto 0;">
+    <span class="small-label">SONG REQUEST</span>
+    <h3 id="guestSongRequestPrompt">What song do you want to hear?</h3>
+    <input type="text" id="guestSongRequestTitle" placeholder="Song title" style="width:100%;margin-top:14px;">
+    <input type="text" id="guestSongRequestArtist" placeholder="Artist" style="width:100%;margin-top:12px;">
+    <div class="main-actions" style="margin-top:14px;justify-content:center;">
+      <button class="primary-button" id="submitGuestSongRequestButton">SEND REQUEST</button>
+    </div>
+    <p id="guestSongRequestConfirmation" style="display:none;text-align:center;margin-top:14px;font-weight:bold;">Request sent!</p>
+  </div>
+
+  <div class="main-actions" style="margin-top:26px;justify-content:center;">
+    <button class="back-button" id="guestViewBackButton">← GUEST HUB</button>
+  </div>
+
+</section>
+
+<!-- ==================================================
+    SHOW DIRECTOR
+    ================================================== -->
+
+    <section id="showDirectorScreen" class="screen">
+
+      <div class="screen-heading">
+
+        <span class="small-label">
+          SHOW DIRECTOR
+        </span>
+
+        <h2>
+          What does the room need right now?
+        </h2>
+
+        <p>
+          Tell the platform what's happening and how much time you need.
+        </p>
+
+      </div>
+
+
+      <div class="feature-panel">
+
+        <h3>How much time do you need?</h3>
+
+        <div class="main-actions">
+
+          <button class="secondary-button director-time" data-time="3">3 MINUTES</button>
+          <button class="secondary-button director-time" data-time="5">5 MINUTES</button>
+          <button class="secondary-button director-time" data-time="10">10 MINUTES</button>
+          <button class="secondary-button director-time" data-time="15">15 MINUTES</button>
+          <button class="secondary-button director-time" data-time="20">20 MINUTES</button>
+
+        </div>
+
+      </div>
+
+
+      <div class="feature-panel" style="margin-top:16px;">
+
+        <h3>What's happening in the room?</h3>
+
+        <div class="main-actions">
+
+          <button class="secondary-button director-moment" data-moment="Low Energy">LOW ENERGY</button>
+          <button class="secondary-button director-moment" data-moment="Unexpected Delay">UNEXPECTED DELAY</button>
+          <button class="secondary-button director-moment" data-moment="Need a Laugh">NEED A LAUGH</button>
+          <button class="secondary-button director-moment" data-moment="Need Competition">NEED COMPETITION</button>
+          <button class="secondary-button director-moment" data-moment="Need Movement">GET THEM MOVING</button>
+          <button class="secondary-button director-moment" data-moment="Transition">NEED A TRANSITION</button>
+
+        </div>
+
+      </div>
+
+
+      <div class="feature-panel" style="margin-top:16px;">
+
+        <h3>What's the crowd like right now?</h3>
+
+        <div class="main-actions">
+
+          <button class="secondary-button director-crowd" data-crowd="Shy">SHY / RESERVED</button>
+          <button class="secondary-button director-crowd" data-crowd="Mixed Ages">MIXED AGES</button>
+          <button class="secondary-button director-crowd" data-crowd="High Energy">HIGH ENERGY</button>
+          <button class="secondary-button director-crowd" data-crowd="Competitive">COMPETITIVE</button>
+
+        </div>
+
+      </div>
+
+
+      <div class="main-actions" style="margin-top:28px;">
+
+        <button
+          class="primary-button"
+          id="directorRecommendButton">
+          RECOMMEND SOMETHING
+        </button>
+
+        <button
+          class="back-button"
+          id="directorBackButton">
+          ← EVENT HQ
+        </button>
+
+      </div>
+
+
+      <div id="directorResult" style="margin-top:28px;"></div>
+
+    </section>
+
+
+    <!-- ==================================================
+    LIVE ACTIVITY HOST
+    ================================================== -->
+
+    <section id="liveActivityHostScreen" class="screen">
+
+      <div class="screen-heading">
+
+        <span class="small-label">
+          LIVE ACTIVITY CONTROL
+        </span>
+
+        <h2 id="liveActivityTitle">
+          Activity
+        </h2>
+
+        <p id="liveActivityDescription">
+          Run the selected experience from here.
+        </p>
+
+      </div>
+
+
+      <div class="feature-panel">
+
+        <span class="small-label">
+          HOST OPENING
+        </span>
+
+        <p
+          id="liveActivityHostIntro"
+          style="font-size:18px;">
+          —
+        </p>
+
+      </div>
+
+
+      <div class="home-panels" style="margin-top:16px;">
+
+        <div class="feature-panel">
+
+          <span class="small-label">
+            CURRENT ROUND
+          </span>
+
+          <h3 id="liveRoundTitle">
+            Round 1
+          </h3>
+
+          <p id="liveRoundPrompt">
+            —
+          </p>
+          <div
+  id="liveRoundDetails"
+  style="
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px solid rgba(255,255,255,0.08);
+  "
+>
+
+  <p id="liveRoundRule">
+  </p>
+
+  <p
+    id="liveRoundTime"
+    style="
+      color:var(--gold-light);
+      font-weight:bold;
+      margin-top:10px;
+    "
+  >
+  </p>
+
+</div>
+
+        </div>
+
+
+        <div class="feature-panel">
+
+          <span class="small-label">
+            ROUND POSITION
+          </span>
+
+          <h3 id="liveRoundPosition">
+            1 of 1
+          </h3>
+
+          <p>
+            Move through the activity one round at a time.
+          </p>
+
+        </div>
+
+
+        <div class="feature-panel">
+
+          <span class="small-label">
+            COMING NEXT
+          </span>
+
+          <h3 id="liveNextRound">
+            —
+          </h3>
+
+          <p>
+            Preview the next moment before the audience sees it.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- TWO TEAM SCORE PANEL -->
+
+      <div
+        id="twoTeamScorePanel"
+        class="feature-panel"
+        style="margin-top:16px;"
+      >
+
+        <span class="small-label">
+          LIVE SCORE
+        </span>
+
+
+        <div class="home-panels" style="margin-top:16px;">
+
+          <div class="feature-panel">
+
+            <input
+              type="text"
+              id="teamANameInput"
+              value="TEAM A"
+              style="
+                width:100%;
+                background:transparent;
+                border:none;
+                color:var(--gold);
+                font-size:11px;
+                font-weight:bold;
+                letter-spacing:0.18em;
+                padding:0;
+              "
+            >
+
+            <h3 id="liveTeamAScore">
+              0
+            </h3>
+
+            <div class="main-actions">
+
+              <button
+                class="secondary-button"
+                id="teamAMinusButton">
+                − 1
+              </button>
+
+              <button
+                class="primary-button"
+                id="teamAPlusButton">
+                + 1
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="feature-panel">
+
+            <input
+              type="text"
+              id="teamBNameInput"
+              value="TEAM B"
+              style="
+                width:100%;
+                background:transparent;
+                border:none;
+                color:var(--gold);
+                font-size:11px;
+                font-weight:bold;
+                letter-spacing:0.18em;
+                padding:0;
+              "
+            >
+
+            <h3 id="liveTeamBScore">
+              0
+            </h3>
+
+            <div class="main-actions">
+
+              <button
+                class="secondary-button"
+                id="teamBMinusButton">
+                − 1
+              </button>
+
+              <button
+                class="primary-button"
+                id="teamBPlusButton">
+                + 1
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="feature-panel">
+
+            <span class="small-label">
+              SCORE CONTROL
+            </span>
+
+            <h3>Game Score</h3>
+
+            <p>
+              Scores stay active while you move through the activity.
+            </p>
+
+            <button
+              class="secondary-button"
+              id="resetLiveScoreButton">
+              RESET SCORE
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- MULTI TEAM SCORE PANEL -->
+
+      <div
+        id="multiTeamScorePanel"
+        class="feature-panel"
+        style="margin-top:16px; display:none;"
+      >
+
+        <span class="small-label">
+          MULTI-TEAM SCORE
+        </span>
+<div
+  id="multiTeamLeaderBox"
+  class="feature-panel"
+  style="margin-top:14px;"
+>
+  <span class="small-label">
+    CURRENT LEADER
+  </span>
+
+  <h3 id="multiTeamLeaderName">
+    No leader yet
+  </h3>
+
+  <p id="multiTeamLeaderScore">
+    Scores are tied at 0.
+  </p>
+</div>
+        <div
+          id="multiTeamScoreList"
+          style="margin-top:16px;">
+        </div>
+
+        <div class="main-actions" style="margin-top:18px;">
+
+          <button
+            class="primary-button"
+            id="addMultiTeamButton">
+            + ADD TEAM
+          </button>
+
+          <button
+            class="secondary-button"
+            id="resetMultiTeamScoreButton">
+            RESET SCORES
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="main-actions" style="margin-top:26px;">
+
+        <button
+          class="secondary-button"
+          id="livePreviousRoundButton">
+          ← PREVIOUS
+        </button>
+
+        <button
+          class="primary-button"
+          id="sendRoundToAudienceButton">
+          SEND ROUND TO AUDIENCE
+        </button>
+
+        <button
+          class="secondary-button"
+          id="liveNextRoundButton">
+          NEXT →
+        </button>
+
+        <button
+          class="secondary-button"
+          id="finishLiveActivityButton">
+          FINISH ACTIVITY
+        </button>
+
+        <button
+          class="back-button"
+          id="liveActivityBackButton">
+          ← SHOW DIRECTOR
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script src="firebase.js"></script>
+<script src="data.js"></script>
+<script src="trial-mode.js"></script>
+<script src="app.js"></script>
+
+</body>
+
+</html>
