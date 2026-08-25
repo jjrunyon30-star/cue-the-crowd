@@ -42,6 +42,29 @@ body {
   color: #ddd;
 }
 
+.trial-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.trial-upgrade-button {
+  display: inline-block;
+  background: #e8bd69;
+  color: #111;
+  text-decoration: none;
+  padding: 11px 17px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.trial-upgrade-button:hover,
+.trial-upgrade-button:focus {
+  background: #f4d28d;
+}
+
 .trial-layout {
   height: calc(100vh - 64px);
   display: grid;
@@ -216,6 +239,26 @@ body {
   .app-area {
     height: 800px;
   }
+
+  .trial-header {
+    height: auto;
+    min-height: 64px;
+    gap: 14px;
+    padding: 10px 14px;
+  }
+
+  .trial-header-actions {
+    gap: 10px;
+  }
+
+  .trial-status {
+    display: none;
+  }
+
+  .trial-upgrade-button {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
 }
 </style>
 </head>
@@ -224,8 +267,17 @@ body {
 
 <div class="trial-header">
   <div class="trial-brand">CUE THE CROWD — FREE TRIAL</div>
-  <div class="trial-status" id="trialStatus">
-    2 practice events available
+  <div class="trial-header-actions">
+    <div class="trial-status" id="trialStatus">
+      2 practice events available
+    </div>
+    <a
+      class="trial-upgrade-button"
+      href="https://www.paypal.com/ncp/payment/NLZRSJUQTKE22"
+      target="_blank"
+      rel="noopener noreferrer">
+      UPGRADE TO FULL ACCESS — $399
+    </a>
   </div>
 </div>
 
@@ -582,9 +634,10 @@ body {
     </div>
 
     <a class="buy-button"
-       href="https://cuethecrowdlive.com/founding.html"
-       target="_blank">
-       UNLOCK CUE THE CROWD
+       href="https://www.paypal.com/ncp/payment/NLZRSJUQTKE22"
+       target="_blank"
+       rel="noopener noreferrer">
+       UPGRADE TO FULL ACCESS — $399
     </a>
 
   </aside>
@@ -614,9 +667,10 @@ body {
 
         <a
           class="unlock-button"
-          href="https://cuethecrowdlive.com/founding.html"
-          target="_blank">
-          UNLOCK CUE THE CROWD
+          href="https://www.paypal.com/ncp/payment/NLZRSJUQTKE22"
+          target="_blank"
+          rel="noopener noreferrer">
+          UPGRADE TO FULL ACCESS — $399
         </a>
       </div>
     </div>
