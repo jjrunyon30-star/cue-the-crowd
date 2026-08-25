@@ -14411,3 +14411,79 @@ guestListeners();
   }, true);
 
 })();
+// ======================================================
+// CUE THE CROWD — GLOBAL EVENT HQ NAVIGATION
+// Gives the DJ a direct Event HQ button from Host Control,
+// Guest Hub and other event screens.
+// ======================================================
+
+(function installGlobalEventHQButton() {
+
+  function install() {
+
+    if (document.getElementById("ctcTopEventHQButton")) {
+      return;
+    }
+
+    const myEventsButton =
+      document.getElementById("topMyEventsButton");
+
+    if (!myEventsButton || !myEventsButton.parentElement) {
+      return;
+    }
+
+    const button =
+      document.createElement("button");
+
+    button.id =
+      "ctcTopEventHQButton";
+
+    button.className =
+      "small-button";
+
+    button.textContent =
+      "EVENT HQ";
+
+    button.addEventListener(
+      "click",
+      function () {
+
+        const currentEvent =
+          typeof getCurrentEvent === "function"
+            ? getCurrentEvent()
+            : null;
+
+        if (!currentEvent || !currentEvent.id) {
+          alert("Open an event first.");
+          return;
+        }
+
+        if (typeof updateEventHQ === "function") {
+          updateEventHQ(currentEvent);
+        }
+
+        hideAllScreens();
+
+        eventHQScreen.classList.add(
+          "active"
+        );
+      }
+    );
+
+    myEventsButton.parentElement.insertBefore(
+      button,
+      myEventsButton
+    );
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      install,
+      { once: true }
+    );
+  } else {
+    install();
+  }
+
+})();
