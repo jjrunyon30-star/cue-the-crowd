@@ -6830,6 +6830,8 @@ updateGuestJoinAccess = function () {
   }
 }
 
+   renderGuestJoinQRCode();
+}; 
 // ======================================================
 // AUTO-OPEN GUEST VIEW FROM JOIN LINK
 // ======================================================
