@@ -6734,20 +6734,17 @@ function updateGuestJoinAccess() {
   }
 
 }
-
 // ======================================================
 // GENERATE GUEST JOIN QR CODE
 // ======================================================
 
 function renderGuestJoinQRCode() {
 
-  const event =
-    getCurrentEvent();
+  const event = getCurrentEvent();
 
   if (!event) return;
 
-  const code =
-    getGuestEventCode(event);
+  const code = getGuestEventCode(event);
 
   const baseURL =
     window.location.href.split("?")[0];
@@ -6761,15 +6758,14 @@ function renderGuestJoinQRCode() {
   if (!qrContainer) return;
 
   qrContainer.innerHTML = "";
-new QRCode(qrContainer, {
-  text: guestURL,
-  width: 260,
-  height: 260,
-  colorDark: "#000000",
-  colorLight: "#ffffff",
- correctLevel: QRCode.CorrectLevel.L
-});
+
+  new QRCode(qrContainer, {
+    text: guestURL,
+    width: 200,
+    height: 200
+  });
 }
+
 const originalUpdateGuestJoinAccess =
   updateGuestJoinAccess;
 
@@ -6777,62 +6773,9 @@ updateGuestJoinAccess = function () {
 
   originalUpdateGuestJoinAccess();
 
- function renderGuestJoinQRCode() {
+  renderGuestJoinQRCode();
 
-  const event =
-    getCurrentEvent();
-
-  if (!event) return;
-
-  const code =
-    getGuestEventCode(event);
-
-  const guestURL =
-    "https://app.cuethecrowdlive.com/?join=" +
-    encodeURIComponent(code);
-
-  const qrContainer =
-    document.getElementById("guestJoinQRCode");
-
-  if (!qrContainer) return;
-
-  qrContainer.innerHTML = "";
-
-  if (typeof QRCode === "undefined") {
-    qrContainer.innerHTML =
-      '<div style="color:#111;text-align:center;padding:20px;">' +
-      '<strong>QR code could not load.</strong><br><br>' +
-      'Use the guest link below instead.' +
-      '</div>';
-    return;
-  }
-
-  try {
-
-    new QRCode(qrContainer, {
-      text: guestURL,
-      width: 200,
-      height: 200,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H
-    });
-
-  } catch (error) {
-
-    console.error("QR CODE ERROR:", error);
-
-    qrContainer.innerHTML =
-      '<div style="color:#111;text-align:center;padding:20px;">' +
-      '<strong>QR code could not load.</strong><br><br>' +
-      'Use the guest link below instead.' +
-      '</div>';
-  }
-}
-
-// ======================================================
-// AUTO-OPEN GUEST VIEW FROM JOIN LINK
-// ======================================================
+};
 
 (function openGuestViewFromJoinLink() {
 
