@@ -167,8 +167,8 @@ document.querySelectorAll(".event-type").forEach(function (button) {
       return;
     }
 
-    // All other event types now create a real event shell
-    // using the same Event Platform engine.
+    // All other event types start with the Event DNA form.
+    // The event is not added to My Events until SAVE EVENT is clicked.
     const newEvent = {
 
       id:
@@ -188,6 +188,15 @@ document.querySelectorAll(".event-type").forEach(function (button) {
           ? eventType
           : (eventType.endsWith("Event") ? eventType : eventType + " Event"),
 
+      eventDate:
+        "",
+
+      birthdayPerson:
+        "",
+
+      birthdayAge:
+        "",
+
       guestCount:
         "",
 
@@ -204,15 +213,18 @@ document.querySelectorAll(".event-type").forEach(function (button) {
         "",
 
       show:
-        []
+        [],
+
+      isNewEventSetup:
+        true
     };
 
     saveCurrentEvent(newEvent);
-    updateEventInLibrary(newEvent);
-    updateEventHQ(newEvent);
+
+    loadGenericEventDNA(newEvent);
 
     hideAllScreens();
-    eventHQScreen.classList.add("active");
+    genericEventDNAScreen.classList.add("active");
 
   });
 
@@ -503,6 +515,44 @@ function loadGenericEventDNA(event) {
   ).value =
     event.eventName || "";
 
+  const birthdayPersonField =
+    document.getElementById(
+      "genericBirthdayPersonField"
+    );
+
+  const birthdayAgeField =
+    document.getElementById(
+      "genericBirthdayAgeField"
+    );
+
+  const isBirthday =
+    event.type === "Birthday";
+
+  if (birthdayPersonField) {
+    birthdayPersonField.style.display =
+      isBirthday ? "" : "none";
+  }
+
+  if (birthdayAgeField) {
+    birthdayAgeField.style.display =
+      isBirthday ? "" : "none";
+  }
+
+  document.getElementById(
+    "genericBirthdayPerson"
+  ).value =
+    event.birthdayPerson || "";
+
+  document.getElementById(
+    "genericBirthdayAge"
+  ).value =
+    event.birthdayAge || "";
+
+  document.getElementById(
+    "genericEventDate"
+  ).value =
+    event.eventDate || "";
+
   document.getElementById(
     "genericGuestCount"
   ).value =
@@ -583,6 +633,28 @@ saveGenericDNAButton.addEventListener(
       (current.type || "Event") +
         " Event";
 
+    current.birthdayPerson =
+      document
+        .getElementById(
+          "genericBirthdayPerson"
+        )
+        .value
+        .trim();
+
+    current.birthdayAge =
+      document
+        .getElementById(
+          "genericBirthdayAge"
+        )
+        .value;
+
+    current.eventDate =
+      document
+        .getElementById(
+          "genericEventDate"
+        )
+        .value;
+
     current.guestCount =
       document
         .getElementById(
@@ -625,6 +697,8 @@ saveGenericDNAButton.addEventListener(
     current.updatedAt =
       new Date().toISOString();
 
+    delete current.isNewEventSetup;
+
     saveCurrentEvent(current);
 
     updateEventInLibrary(
@@ -647,6 +721,21 @@ saveGenericDNAButton.addEventListener(
 genericDNABackButton.addEventListener(
   "click",
   function () {
+
+    const current =
+      getCurrentEvent();
+
+    if (current && current.isNewEventSetup) {
+      localStorage.removeItem("currentEvent");
+
+      hideAllScreens();
+
+      eventSetupScreen.classList.add(
+        "active"
+      );
+
+      return;
+    }
 
     hideAllScreens();
 
@@ -6741,58 +6830,15 @@ function updateGuestJoinAccess() {
 
 function renderGuestJoinQRCode() {
 
-  const event =
-    getCurrentEvent();
+  const event = getCurrentEvent();
 
   if (!event) return;
 
-  const code =
-    getGuestEventCode(event);
-
-  const baseURL =
-    window.location.href.split("?")[0];
-
-  const guestURL =
-    baseURL + "?join=" + encodeURIComponent(code);
-
-  const qrContainer =
-    document.getElementById("guestJoinQRCode");
-
-  if (!qrContainer) return;
-
-  qrContainer.innerHTML = "";
-new QRCode(qrContainer, {
-  text: guestURL,
-  width: 260,
-  height: 260,
-  colorDark: "#000000",
-  colorLight: "#ffffff",
- correctLevel: QRCode.CorrectLevel.L
-});
-}
-const originalUpdateGuestJoinAccess =
-  updateGuestJoinAccess;
-
-updateGuestJoinAccess = function () {
-
-  originalUpdateGuestJoinAccess();
-
- function renderGuestJoinQRCode() {
-
-  const event =
-    getCurrentEvent();
-
-  if (!event) return;
-
-  const code =
-    getGuestEventCode(event);
-
+  const code = getGuestEventCode(event);
   const guestURL =
     "https://app.cuethecrowdlive.com/?join=" +
     encodeURIComponent(code);
-
-  const qrContainer =
-    document.getElementById("guestJoinQRCode");
+  const qrContainer = document.getElementById("guestJoinQRCode");
 
   if (!qrContainer) return;
 
@@ -6815,7 +6861,7 @@ updateGuestJoinAccess = function () {
       height: 200,
       colorDark: "#000000",
       colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H
+      correctLevel: QRCode.CorrectLevel.L
     });
 
   } catch (error) {
@@ -6830,8 +6876,13 @@ updateGuestJoinAccess = function () {
   }
 }
 
-   renderGuestJoinQRCode();
-}; 
+const originalUpdateGuestJoinAccess = updateGuestJoinAccess;
+
+updateGuestJoinAccess = function () {
+  originalUpdateGuestJoinAccess();
+  renderGuestJoinQRCode();
+};
+
 // ======================================================
 // AUTO-OPEN GUEST VIEW FROM JOIN LINK
 // ======================================================
