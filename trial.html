@@ -102,6 +102,23 @@ body {
   margin-bottom: 5px;
 }
 
+.trial-limit-note {
+  background: #17130c;
+  border: 1px solid #725b2d;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 22px;
+  color: #ddd;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.trial-limit-note strong {
+  display: block;
+  color: #e8bd69;
+  margin-bottom: 5px;
+}
+
 .step {
   border-top: 1px solid #333;
   padding: 22px 0;
@@ -297,6 +314,13 @@ body {
       <strong>Your Free Trial</strong>
       Create up to two fake practice events. Use fake names and dates.
       These are simply for learning how Cue the Crowd works.
+    </div>
+
+    <div class="trial-limit-note">
+      <strong>Trial-only limits</strong>
+      Duplicate, Save as Template, and changes to a saved event's name,
+      type, or date are intentionally unavailable during the free trial.
+      These controls are fully activated with the purchased version.
     </div>
 
     <div class="step">
@@ -684,6 +708,7 @@ body {
 
   const MAX_EVENTS = 2;
   const STORAGE_KEY = "ctcFreeTrialSavedEvents";
+  const USED_EVENT_IDS_KEY = "ctcFreeTrialUsedEventIds";
 
   function getTrialCount() {
     return parseInt(localStorage.getItem(STORAGE_KEY) || "0", 10);
@@ -717,6 +742,88 @@ body {
     document.getElementById("lockScreen").style.display = "none";
   }
 
+  function getUsedEventIds() {
+    try {
+      const ids = JSON.parse(
+        localStorage.getItem(USED_EVENT_IDS_KEY) || "[]"
+      );
+      return Array.isArray(ids) ? ids : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function getSavedTrialEvents() {
+    try {
+      const events = JSON.parse(
+        localStorage.getItem("savedEvents") || "[]"
+      );
+      return Array.isArray(events) ? events : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function syncTrialEventCount() {
+    const usedIds = getUsedEventIds();
+    const savedEvents = getSavedTrialEvents();
+
+    savedEvents.forEach(function (savedEvent) {
+      if (
+        savedEvent &&
+        savedEvent.id &&
+        !usedIds.includes(savedEvent.id) &&
+        usedIds.length < MAX_EVENTS
+      ) {
+        usedIds.push(savedEvent.id);
+      }
+    });
+
+    localStorage.setItem(
+      USED_EVENT_IDS_KEY,
+      JSON.stringify(usedIds)
+    );
+
+    setTrialCount(Math.min(MAX_EVENTS, usedIds.length));
+  }
+
+  function lockTrialIdentityFields(appDocument) {
+    [
+      "weddingEventName",
+      "weddingDate",
+      "genericEventName"
+    ].forEach(function (id) {
+      const field = appDocument.getElementById(id);
+
+      if (!field) return;
+
+      field.readOnly = true;
+      field.setAttribute("aria-readonly", "true");
+      field.title =
+        "Event name, type, and date cannot be changed in the free trial.";
+      field.style.opacity = "0.65";
+      field.style.cursor = "not-allowed";
+    });
+  }
+
+  function markTrialOnlyControls(appDocument) {
+    appDocument
+      .querySelectorAll(
+        ".duplicate-saved-event, " +
+        ".save-template-event, " +
+        ".use-template, " +
+        "#templatesButton"
+      )
+      .forEach(function (button) {
+        button.disabled = true;
+        button.setAttribute("aria-disabled", "true");
+        button.title =
+          "Available with the purchased Cue the Crowd version.";
+        button.style.opacity = "0.45";
+        button.style.cursor = "not-allowed";
+      });
+  }
+
   function connectToApp() {
 
     const frame = document.getElementById("cueApp");
@@ -737,6 +844,18 @@ body {
 
       if (!appDocument) return;
 
+      syncTrialEventCount();
+      markTrialOnlyControls(appDocument);
+
+      const trialControlObserver = new MutationObserver(function () {
+        markTrialOnlyControls(appDocument);
+      });
+
+      trialControlObserver.observe(appDocument.body, {
+        childList: true,
+        subtree: true
+      });
+
       appDocument.addEventListener(
         "click",
         function (event) {
@@ -746,7 +865,9 @@ body {
           if (!target || !target.closest) return;
 
           const createButton =
-            target.closest("#createEventButton");
+            target.closest(
+              "#createEventButton, #myEventsCreateButton"
+            );
 
           if (createButton && getTrialCount() >= MAX_EVENTS) {
             event.preventDefault();
@@ -756,59 +877,30 @@ body {
             return;
           }
 
-        },
-        true
-      );
-
-      appDocument.addEventListener(
-        "submit",
-        function (event) {
-
-          const form = event.target;
-
-          if (!form) return;
-
-          const formText =
-            ((form.id || "") + " " +
-             (form.className || "") + " " +
-             (form.textContent || "")).toLowerCase();
-
-          const looksLikeEventForm =
-            formText.includes("event") &&
-            (
-              formText.includes("save") ||
-              formText.includes("create")
+          const identityEditButton =
+            target.closest(
+              ".edit-saved-event, #eventDNAButton, #homeEventDNACard"
             );
 
-          if (!looksLikeEventForm) return;
-
-          const current = getTrialCount();
-
-          if (current >= MAX_EVENTS) {
-            event.preventDefault();
-            event.stopPropagation();
-            showLock();
-            return;
+          if (identityEditButton) {
+            setTimeout(function () {
+              lockTrialIdentityFields(appDocument);
+            }, 50);
           }
-
-          setTimeout(function () {
-
-            const updated = getTrialCount();
-
-            if (updated < MAX_EVENTS) {
-              setTrialCount(updated + 1);
-            }
-
-          }, 500);
 
         },
         true
       );
+
+      setInterval(function () {
+        syncTrialEventCount();
+        markTrialOnlyControls(appDocument);
+      }, 500);
 
     });
   }
 
-  updateStatus();
+  syncTrialEventCount();
   connectToApp();
 
 })();
