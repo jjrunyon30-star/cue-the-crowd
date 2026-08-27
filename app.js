@@ -4320,6 +4320,12 @@ function startLiveActivity(
   hideAllScreens();
 
   liveActivityHostScreen.classList.add("active");
+
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "auto"
+  });
 }
 
 
@@ -9689,8 +9695,25 @@ const $=id=>document.getElementById(id), ev=()=>{try{return getCurrentEvent()||{
 function theme(t){
   t=t||{};
   const r=document.documentElement;
-  r.style.setProperty('--eppP',t.primary||'#d4af37');
-  r.style.setProperty('--eppA',t.accent||'#ffffff');
+
+  const savedPrimary=
+    String(t.primary||'')
+      .toLowerCase();
+
+  const oldGoldColors=[
+    '#d4af37',
+    '#d8b56a',
+    '#d8b75d',
+    '#e8bd69'
+  ];
+
+  const primary=
+    oldGoldColors.includes(savedPrimary)
+      ? '#f45bd2'
+      : t.primary||'#f45bd2';
+
+  r.style.setProperty('--eppP',primary);
+  r.style.setProperty('--eppA',t.accent||'#77d7ff');
   r.style.setProperty('--eppB',t.mode==='light'?'#f7f7f7':'#0f0f12');
   r.style.setProperty('--eppT',t.mode==='light'?'#161616':'#ffffff');
   document.body.classList.add('eppTheme');
@@ -9723,7 +9746,14 @@ function guestUI(){
     const r=document.createElement('div');
     r.id='eppResults';
     r.innerHTML='<div id="eppResultTitle">LIVE RESULT</div><div id="eppResultValue">—</div><div id="eppResultDetail"></div>';
-    g.appendChild(r);
+    const firstGuestPanel=
+      g.querySelector('.feature-panel');
+
+    if(firstGuestPanel){
+      g.insertBefore(r,firstGuestPanel);
+    }else{
+      g.appendChild(r);
+    }
   }
 
   if(g&&!$('eppGuestCloud')){
@@ -9757,15 +9787,15 @@ function loadTheme(){
   if(!e.id)return;
 
   const t=e.theme||{
-    primary:'#d4af37',
-    accent:'#ffffff',
+    primary:'#f45bd2',
+    accent:'#77d7ff',
     mode:'dark'
   };
 
   theme(t);
 
-  if($('eppPrimary'))$('eppPrimary').value=t.primary||'#d4af37';
-  if($('eppAccent'))$('eppAccent').value=t.accent||'#ffffff';
+  if($('eppPrimary'))$('eppPrimary').value=(t.primary==='#d4af37'?'#f45bd2':t.primary)||'#f45bd2';
+  if($('eppAccent'))$('eppAccent').value=t.accent||'#77d7ff';
   if($('eppMode'))$('eppMode').value=t.mode||'dark';
 }
 
@@ -10023,6 +10053,13 @@ function showResult(r){
     r.detail||'';
 
   p.style.display='block';
+
+  setTimeout(function(){
+    p.scrollIntoView({
+      behavior:'smooth',
+      block:'start'
+    });
+  },50);
 }
 
 function cloudState(part){
