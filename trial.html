@@ -50,7 +50,7 @@ body {
 
 .trial-upgrade-button {
   display: inline-block;
-  background: #e8bd69;
+  background: #f45bd2;
   color: #111;
   text-decoration: none;
   padding: 11px 17px;
@@ -62,7 +62,7 @@ body {
 
 .trial-upgrade-button:hover,
 .trial-upgrade-button:focus {
-  background: #f4d28d;
+  background: #77d7ff;
 }
 
 .trial-layout {
@@ -103,8 +103,8 @@ body {
 }
 
 .trial-limit-note {
-  background: #17130c;
-  border: 1px solid #725b2d;
+  background: #11101a;
+  border: 1px solid #6446a8;
   border-radius: 12px;
   padding: 15px;
   margin-bottom: 22px;
@@ -115,7 +115,7 @@ body {
 
 .trial-limit-note strong {
   display: block;
-  color: #e8bd69;
+  color: #f45bd2;
   margin-bottom: 5px;
 }
 
@@ -236,6 +236,55 @@ body {
   padding: 16px 25px;
   border-radius: 10px;
   font-weight: bold;
+}
+
+/* Cue the Crowd — blue / pink / purple brand palette */
+:root {
+  --trial-blue: #29b6f6;
+  --trial-purple: #8b5cf6;
+  --trial-pink: #f45bd2;
+  --trial-gradient: linear-gradient(135deg, #29b6f6 0%, #8b5cf6 48%, #f45bd2 100%);
+}
+
+.trial-header {
+  border-bottom-color: rgba(139, 92, 246, 0.48);
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.14);
+}
+
+.trial-brand,
+.trial-limit-note strong {
+  color: #f45bd2;
+}
+
+.trial-upgrade-button,
+.buy-button,
+.unlock-button {
+  color: #08090d;
+  background: var(--trial-gradient);
+  border-color: transparent;
+  box-shadow: 0 10px 28px rgba(139, 92, 246, 0.24);
+}
+
+.trial-upgrade-button:hover,
+.trial-upgrade-button:focus,
+.buy-button:hover,
+.buy-button:focus,
+.unlock-button:hover,
+.unlock-button:focus {
+  background: linear-gradient(135deg, #77d7ff 0%, #a78bfa 48%, #ff80df 100%);
+}
+
+.trial-limit-note {
+  background: linear-gradient(135deg, rgba(41, 182, 246, 0.09), rgba(139, 92, 246, 0.10), rgba(244, 91, 210, 0.08));
+  border-color: rgba(139, 92, 246, 0.48);
+}
+
+.progress-box {
+  border-color: rgba(41, 182, 246, 0.34);
+}
+
+.example {
+  border-left-color: #8b5cf6;
 }
 
 @media (max-width: 900px) {
@@ -671,23 +720,31 @@ body {
     <iframe
       id="cueApp"
       class="app-frame"
-      src="index.html"
+      src="index.html?v=20260827-2"
       title="Cue the Crowd App">
     </iframe>
 
     <div class="lock-screen" id="lockScreen">
       <div class="lock-inner">
-        <h1>Your Free Trial Is Complete</h1>
+        <h1>Two Practice Events Created</h1>
 
         <p>
-          You've created two Cue the Crowd practice events and experienced
-          how the DJ, guests and audience can interact in real time.
+          Your trial includes two practice events, so creating another event
+          is unavailable. You can continue opening, reviewing and testing
+          both of your saved events.
         </p>
 
         <p>
-          Unlock the full platform to create additional events and use
-          Cue the Crowd with your clients.
+          Upgrade to create additional events and use Cue the Crowd with
+          your clients.
         </p>
+
+        <button
+          type="button"
+          class="unlock-button"
+          id="continueTrialReviewButton">
+          CONTINUE REVIEWING MY EVENTS
+        </button>
 
         <a
           class="unlock-button"
@@ -791,7 +848,10 @@ body {
     [
       "weddingEventName",
       "weddingDate",
-      "genericEventName"
+      "genericEventName",
+      "genericEventDate",
+      "genericBirthdayPerson",
+      "genericBirthdayAge"
     ].forEach(function (id) {
       const field = appDocument.getElementById(id);
 
@@ -843,6 +903,24 @@ body {
       }
 
       if (!appDocument) return;
+
+      const continueReviewButton =
+        document.getElementById(
+          "continueTrialReviewButton"
+        );
+
+      if (continueReviewButton) {
+        continueReviewButton.onclick = function () {
+          hideLock();
+
+          const myEventsButton =
+            appDocument.getElementById("topMyEventsButton");
+
+          if (myEventsButton) {
+            myEventsButton.click();
+          }
+        };
+      }
 
       syncTrialEventCount();
       markTrialOnlyControls(appDocument);
