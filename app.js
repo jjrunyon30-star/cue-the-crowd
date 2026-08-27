@@ -1919,9 +1919,13 @@ acceptShowButton.addEventListener("click", function () {
   updateEventHQ(event);
 
 
+  currentHostSegmentIndex = 0;
+
+  loadHostControl();
+
   hideAllScreens();
 
-  eventHQScreen.classList.add("active");
+  hostControlScreen.classList.add("active");
 });
 
 
@@ -2437,6 +2441,96 @@ document.querySelectorAll(".quick-activity").forEach(function (button) {
 
     const activityName =
       this.dataset.activity;
+
+
+    const quickAliases = {
+      "Generation Battle":
+        "Generation Showdown",
+      "Battle of the Tables":
+        "Table Takeover"
+    };
+
+
+    const requestedName =
+      quickAliases[activityName] ||
+      activityName;
+
+
+    const liveActivity =
+      activityLibrary.find(function (item) {
+
+        const itemName =
+          String(item.name || "")
+            .toLowerCase();
+
+        const targetName =
+          String(requestedName)
+            .toLowerCase();
+
+        return (
+          itemName === targetName ||
+          itemName.includes(targetName) ||
+          targetName.includes(itemName)
+        );
+      });
+
+
+    const quickPrompts = {
+      "Crowd Pulse":
+        "Who is more likely to control the thermostat for the rest of their lives?",
+      "Battle of the Tables":
+        "Every table is officially a team. Get ready for a fast challenge and some serious bragging rights.",
+      "Side vs. Side":
+        "Pick your side. The room is splitting into two teams for a quick head-to-head showdown.",
+      "Music Showdown":
+        "Get ready for a fast music challenge. Listen closely and be ready to answer.",
+      "Generation Battle":
+        "Which generation owns the room tonight? Get ready to defend yours.",
+      "Couple Spotlight":
+        "All eyes on the couple. Let’s see how well this room really knows them.",
+      "Quick Laugh":
+        "Time for a quick reset. Get ready for something fast, ridiculous and easy to play.",
+      "Room Rescue":
+        "Energy check. We’re turning this room around with one fast challenge."
+    };
+
+
+    const activityToRun =
+      liveActivity || {
+        id:
+          "quick-" +
+          String(activityName)
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-"),
+        name:
+          activityName,
+        description:
+          quickPrompts[activityName] ||
+          "A fast live activity for the entire room.",
+        hostIntro:
+          "Get your phones ready. The next activity is going live now.",
+        rounds: [
+          {
+            title:
+              "ROUND 1",
+            prompt:
+              quickPrompts[activityName] ||
+              "Get ready. Your host is starting the next experience."
+          }
+        ],
+        scoreType:
+          "none",
+        transition:
+          "Give yourselves a hand."
+      };
+
+
+    startLiveActivity(
+      activityToRun,
+      "quickLaunch"
+    );
+
+    return;
 
 
     const event =
@@ -4162,7 +4256,9 @@ function startLiveActivity(
   liveActivityBackButton.textContent =
     returnScreen === "hostControl"
       ? "← HOST CONTROL"
-      : "← SHOW DIRECTOR";
+      : returnScreen === "quickLaunch"
+        ? "← QUICK LAUNCH"
+        : "← SHOW DIRECTOR";
 
   activeLiveActivity =
     activity;
@@ -4402,6 +4498,44 @@ livePreviousRoundButton.addEventListener("click", function () {
 // SEND LIVE ACTIVITY ROUND TO AUDIENCE
 // ======================================================
 
+function syncLiveResultToAllScreens(result) {
+
+  const event =
+    getCurrentEvent();
+
+  if (
+    !event ||
+    !event.id ||
+    typeof eventDatabase === "undefined"
+  ) {
+    return Promise.resolve();
+  }
+
+  const eventCode =
+    getGuestEventCode(event);
+
+  return eventDatabase
+    .ref(
+      "events/" +
+      eventCode +
+      "/guestResults"
+    )
+    .set({
+      active: true,
+      title:
+        result.title ||
+        "LIVE NOW",
+      value:
+        result.value ||
+        "GET READY",
+      detail:
+        result.detail ||
+        "",
+      updatedAt:
+        firebase.database.ServerValue.TIMESTAMP
+    });
+}
+
 sendRoundToAudienceButton.addEventListener("click", function () {
 
   if (!activeLiveActivity) {
@@ -4546,7 +4680,142 @@ finishLiveActivityButton.addEventListener("click", function () {
     "← EVENT HQ";
 
 
-  openAudience();
+  let finishValue =
+    "THANK YOU FOR PLAYING";
+
+  let finishDetail =
+    activeLiveActivity.transition ||
+    "Give yourselves a hand.";
+
+
+  if (
+    activeLiveActivity.scoreType ===
+    "two-team"
+  ) {
+
+    const teamAName =
+      teamANameInput.value.trim() ||
+      "TEAM A";
+
+    const teamBName =
+      teamBNameInput.value.trim() ||
+      "TEAM B";
+
+    finishValue =
+      teamAScore === teamBScore
+        ? "TIE GAME"
+        : teamAScore > teamBScore
+          ? teamAName + " WINS!"
+          : teamBName + " WINS!";
+
+    finishDetail =
+      teamAName +
+      " " +
+      teamAScore +
+      " • " +
+      teamBName +
+      " " +
+      teamBScore;
+  }
+
+
+  if (
+    activeLiveActivity.scoreType ===
+    "multi-team" &&
+    multiTeams.length
+  ) {
+
+    const highestScore =
+      Math.max.apply(
+        null,
+        multiTeams.map(function (team) {
+          return team.score;
+        })
+      );
+
+    const winners =
+      multiTeams.filter(function (team) {
+        return team.score === highestScore;
+      });
+
+    finishValue =
+      winners.length === 1
+        ? winners[0].name + " WINS!"
+        : "TIE GAME";
+
+    finishDetail =
+      winners
+        .map(function (team) {
+          return team.name;
+        })
+        .join(" • ") +
+      " — " +
+      highestScore +
+      " points";
+  }
+
+
+  const finishReturnScreen =
+    liveActivityReturnScreen;
+
+
+  syncLiveResultToAllScreens({
+    title: "ACTIVITY COMPLETE",
+    value: finishValue,
+    detail: finishDetail
+  })
+    .then(function () {
+
+      activeLiveActivity = null;
+
+      localStorage.removeItem(
+        "activeActivity"
+      );
+
+      hideAllScreens();
+
+      if (
+        finishReturnScreen ===
+        "hostControl"
+      ) {
+
+        loadHostControl();
+
+        hostControlScreen.classList.add(
+          "active"
+        );
+
+      } else if (
+        finishReturnScreen ===
+        "quickLaunch"
+      ) {
+
+        quickLaunchScreen.classList.add(
+          "active"
+        );
+
+      } else {
+
+        updateEventHQ(
+          getCurrentEvent()
+        );
+
+        eventHQScreen.classList.add(
+          "active"
+        );
+      }
+    })
+    .catch(function (error) {
+
+      console.error(
+        "Finish activity sync failed:",
+        error
+      );
+
+      alert(
+        "The final result could not be sent. Please try again."
+      );
+    });
 });
 
 
@@ -4569,6 +4838,19 @@ liveActivityBackButton.addEventListener("click", function () {
     loadHostControl();
 
     hostControlScreen.classList.add(
+      "active"
+    );
+
+    return;
+  }
+
+
+  if (
+    liveActivityReturnScreen ===
+    "quickLaunch"
+  ) {
+
+    quickLaunchScreen.classList.add(
       "active"
     );
 
@@ -5006,9 +5288,44 @@ sendRoundToAudienceButton.addEventListener(
       "← LIVE ACTIVITY CONTROL";
 
 
-    hideAllScreens();
+    const liveValue =
+      round.title ||
+      "LIVE NOW";
 
-    audienceScreen.classList.add("active");
+    const liveDetail =
+      round.prompt ||
+      "";
+
+
+    syncLiveResultToAllScreens({
+      title:
+        activeLiveActivity.name,
+      value:
+        liveValue,
+      detail:
+        liveDetail
+    })
+      .then(function () {
+
+        sendRoundToAudienceButton.textContent =
+          "✓ LIVE ON GUEST PHONES + VENUE SCREEN";
+
+        setTimeout(function () {
+          sendRoundToAudienceButton.textContent =
+            "SHOW LIVE ON ALL SCREENS";
+        }, 2200);
+      })
+      .catch(function (error) {
+
+        console.error(
+          "Live screen sync failed:",
+          error
+        );
+
+        alert(
+          "The live activity could not be sent. Please try again."
+        );
+      });
 
   },
   true
@@ -9048,6 +9365,17 @@ function startFirebaseBuzzerListener() {
         hostBuzzerStatusMessage.textContent =
           "Buzzer locked. Reset when you're ready for the next round.";
 
+        syncLiveResultToAllScreens({
+          title: "BUZZER WINNER",
+          value:
+            "⚡ " +
+            buzzer.winner.name +
+            " BUZZED FIRST!",
+          detail:
+            buzzer.prompt ||
+            "Fastest response wins."
+        });
+
       } else if (buzzer.open) {
 
         hostBuzzerWinner.textContent =
@@ -13079,7 +13407,7 @@ guestListeners();
 
     const host =
       document.getElementById(
-        "eppHostXL"
+        "hostControlScreen"
       );
 
     if (
