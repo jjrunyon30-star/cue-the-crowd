@@ -4319,12 +4319,36 @@ function startLiveActivity(
 
   hideAllScreens();
 
+  const activityParent =
+    liveActivityHostScreen.parentElement;
+
+  if (
+    activityParent &&
+    activityParent.firstElementChild !==
+      liveActivityHostScreen
+  ) {
+    activityParent.insertBefore(
+      liveActivityHostScreen,
+      activityParent.firstElementChild
+    );
+  }
+
   liveActivityHostScreen.classList.add("active");
 
   window.scrollTo({
     top: 0,
     left: 0,
     behavior: "auto"
+  });
+
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
+  requestAnimationFrame(function () {
+    liveActivityHostScreen.scrollIntoView({
+      behavior: "auto",
+      block: "start"
+    });
   });
 }
 
@@ -4464,6 +4488,16 @@ liveRoundTime.textContent =
         )
       : "Final Round";
 
+  const responseMessage =
+    document.getElementById(
+      "livePhoneResponseMessage"
+    );
+
+  if (responseMessage) {
+    responseMessage.textContent =
+      "Click Show Live on All Screens to open voting or the buzzer.";
+  }
+
 
   updateLiveScorePanels();
 }
@@ -4504,6 +4538,45 @@ livePreviousRoundButton.addEventListener("click", function () {
 // SEND LIVE ACTIVITY ROUND TO AUDIENCE
 // ======================================================
 
+let liveActivityPollListenerRef = null;
+
+
+function startLiveActivityPollResponseListener(eventCode) {
+
+  if (liveActivityPollListenerRef) {
+    liveActivityPollListenerRef.off();
+  }
+
+  liveActivityPollListenerRef =
+    eventDatabase.ref(
+      "events/" + eventCode + "/poll"
+    );
+
+  liveActivityPollListenerRef.on(
+    "value",
+    function (snapshot) {
+
+      const poll = snapshot.val();
+      const message =
+        document.getElementById(
+          "livePhoneResponseMessage"
+        );
+
+      if (!message || !poll) return;
+
+      message.textContent =
+        poll.choiceOne +
+        ": " +
+        Number(poll.votesOne || 0) +
+        " votes • " +
+        poll.choiceTwo +
+        ": " +
+        Number(poll.votesTwo || 0) +
+        " votes";
+    }
+  );
+}
+
 function syncLiveResultToAllScreens(result) {
 
   const event =
@@ -4520,7 +4593,35 @@ function syncLiveResultToAllScreens(result) {
   const eventCode =
     getGuestEventCode(event);
 
-  return eventDatabase
+  const prompt =
+    String(result.detail || "").trim();
+
+  let choiceText = prompt;
+
+  [":", " - ", " — "]
+    .forEach(function (separator) {
+      if (choiceText.includes(separator)) {
+        choiceText = choiceText.split(separator).pop();
+      }
+    });
+
+  choiceText = choiceText
+    .replace(/[?.!]+$/g, "")
+    .trim();
+
+  const choiceParts = choiceText
+    .split(/\s+or\s+/i)
+    .map(function (choice) {
+      return choice.trim();
+    })
+    .filter(Boolean);
+
+  const hasTwoChoices =
+    choiceParts.length === 2 &&
+    choiceParts[0].length <= 80 &&
+    choiceParts[1].length <= 80;
+
+  const resultWrite = eventDatabase
     .ref(
       "events/" +
       eventCode +
@@ -4540,6 +4641,86 @@ function syncLiveResultToAllScreens(result) {
       updatedAt:
         firebase.database.ServerValue.TIMESTAMP
     });
+
+  if (hasTwoChoices) {
+
+    const activeFeatures =
+      getActiveGuestFeatures();
+
+    if (!activeFeatures.includes("Voting")) {
+      activeFeatures.push("Voting");
+      saveActiveGuestFeatures(activeFeatures);
+    }
+
+    const poll = {
+      question: prompt || result.title || "Choose one",
+      choiceOne: choiceParts[0],
+      choiceTwo: choiceParts[1],
+      votesOne: 0,
+      votesTwo: 0,
+      launchedAt: new Date().toISOString()
+    };
+
+    localStorage.setItem(
+      "liveGuestPoll-" + event.id,
+      JSON.stringify(poll)
+    );
+
+    eventDatabase
+      .ref("events/" + eventCode + "/poll")
+      .set(poll);
+
+    const responseMessage =
+      document.getElementById(
+        "livePhoneResponseMessage"
+      );
+
+    if (responseMessage) {
+      responseMessage.textContent =
+        "Voting is open on guest phones: " +
+        choiceParts[0] +
+        " or " +
+        choiceParts[1];
+    }
+
+    startLiveActivityPollResponseListener(
+      eventCode
+    );
+
+    eventDatabase
+      .ref("events/" + eventCode + "/buzzer")
+      .remove();
+
+  } else if (prompt) {
+
+    eventDatabase
+      .ref("events/" + eventCode + "/poll")
+      .remove();
+
+    eventDatabase
+      .ref("events/" + eventCode + "/buzzer")
+      .set({
+        open: true,
+        prompt: prompt,
+        winner: null,
+        openedAt:
+          firebase.database.ServerValue.TIMESTAMP
+      });
+
+    const responseMessage =
+      document.getElementById(
+        "livePhoneResponseMessage"
+      );
+
+    if (responseMessage) {
+      responseMessage.textContent =
+        "The buzzer is open on every guest phone. Waiting for the first response.";
+    }
+
+    startFirebaseBuzzerListener();
+  }
+
+  return resultWrite;
 }
 
 sendRoundToAudienceButton.addEventListener("click", function () {
@@ -5696,6 +5877,19 @@ function prepareGuestVoting() {
   guestVoteQuestion.textContent =
     livePoll.question;
 
+  const voteSessionKey =
+    "guestVotedPoll-" +
+    event.id +
+    "-" +
+    String(
+      livePoll.launchedAt ||
+      livePoll.question
+    );
+
+  const alreadyVoted =
+    localStorage.getItem(voteSessionKey) ===
+    "true";
+
   guestVoteChoices.forEach(function (button, index) {
 
     if (index === 0) {
@@ -5708,12 +5902,26 @@ function prepareGuestVoting() {
       button.dataset.choice = "choiceTwo";
     }
 
-    button.disabled = false;
+    button.disabled = alreadyVoted;
     button.classList.remove("selected-choice");
   });
 
+  guestVoteConfirmation.textContent =
+    alreadyVoted
+      ? "Vote submitted!"
+      : "";
+
   guestVoteConfirmation.style.display =
-    "none";
+    alreadyVoted
+      ? "block"
+      : "none";
+
+  setTimeout(function () {
+    guestVotingPanel.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }, 100);
 }
 
 
@@ -5734,6 +5942,22 @@ guestVoteChoices.forEach(function (button) {
       return;
     }
 
+    const voteSessionKey =
+      "guestVotedPoll-" +
+      event.id +
+      "-" +
+      String(
+        livePoll.launchedAt ||
+        livePoll.question
+      );
+
+    if (
+      localStorage.getItem(voteSessionKey) ===
+      "true"
+    ) {
+      return;
+    }
+
     const choice =
       this.dataset.choice;
 
@@ -5748,6 +5972,11 @@ guestVoteChoices.forEach(function (button) {
     localStorage.setItem(
       pollKey,
       JSON.stringify(livePoll)
+    );
+
+    localStorage.setItem(
+      voteSessionKey,
+      "true"
     );
 
     guestVoteChoices.forEach(function (voteButton) {
@@ -7549,6 +7778,9 @@ if (typeof startFirebaseActiveFeaturesListener === "function") {
 }
 if (typeof startFirebasePhotoSubmissionsListener === "function") {
   startFirebasePhotoSubmissionsListener(joinCode);
+}
+if (typeof startUniversalGuestBuzzerListener === "function") {
+  startUniversalGuestBuzzerListener(joinCode);
 }
 if (typeof loadFirebaseGuestPoll === "function") {
   loadFirebaseGuestPoll();
@@ -9371,6 +9603,18 @@ function startFirebaseBuzzerListener() {
         hostBuzzerStatusMessage.textContent =
           "Buzzer locked. Reset when you're ready for the next round.";
 
+        const liveResponseMessage =
+          document.getElementById(
+            "livePhoneResponseMessage"
+          );
+
+        if (liveResponseMessage) {
+          liveResponseMessage.textContent =
+            "⚡ " +
+            buzzer.winner.name +
+            " buzzed first!";
+        }
+
         syncLiveResultToAllScreens({
           title: "BUZZER WINNER",
           value:
@@ -9390,11 +9634,93 @@ function startFirebaseBuzzerListener() {
         hostBuzzerStatusMessage.textContent =
           "Waiting for the first guest to buzz in.";
 
+        const liveResponseMessage =
+          document.getElementById(
+            "livePhoneResponseMessage"
+          );
+
+        if (liveResponseMessage) {
+          liveResponseMessage.textContent =
+            "The buzzer is open on every guest phone. Waiting for the first response.";
+        }
+
       }
 
     }
   );
 
+}
+
+
+let firebaseGuestBuzzerListenerRef = null;
+
+
+function startUniversalGuestBuzzerListener(joinCode) {
+
+  if (!joinCode) return;
+
+  if (firebaseGuestBuzzerListenerRef) {
+    firebaseGuestBuzzerListenerRef.off();
+  }
+
+  firebaseGuestBuzzerListenerRef =
+    eventDatabase.ref(
+      "events/" + joinCode + "/buzzer"
+    );
+
+  firebaseGuestBuzzerListenerRef.on(
+    "value",
+    function (snapshot) {
+
+      const buzzer = snapshot.val();
+
+      if (!buzzer) {
+        return;
+      }
+
+      if (buzzer.open) {
+
+        guestBuzzerPrompt.textContent =
+          buzzer.prompt ||
+          "Ready to buzz in?";
+
+        guestBuzzerPanel.style.display =
+          "block";
+
+        guestBuzzButton.disabled =
+          false;
+
+        guestBuzzerStatus.style.display =
+          "none";
+
+        setTimeout(function () {
+          guestBuzzerPanel.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }, 80);
+
+        return;
+      }
+
+      if (buzzer.winner) {
+
+        guestBuzzerPanel.style.display =
+          "block";
+
+        guestBuzzButton.disabled =
+          true;
+
+        guestBuzzerStatus.style.display =
+          "block";
+
+        guestBuzzerStatus.textContent =
+          "⚡ " +
+          buzzer.winner.name +
+          " buzzed first!";
+      }
+    }
+  );
 }
 
 
@@ -13705,17 +14031,17 @@ guestListeners();
     'body.eppAudienceMode{margin:0!important;padding:0!important;overflow:hidden;background:#0f0f12}' +
     '#eppStandaloneAudience{position:fixed;inset:0;z-index:2147483600;display:flex;flex-direction:column;box-sizing:border-box;padding:clamp(24px,4vw,70px);background:var(--audBg,#0f0f12);color:var(--audText,#fff);overflow:auto}' +
     '#eppAudTop{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}' +
-    '#eppAudName{margin:0;font-size:clamp(28px,4vw,64px);color:var(--audPrimary,#d4af37)}' +
+    '#eppAudName{margin:0;font-size:clamp(28px,4vw,64px);color:var(--audPrimary,#f45bd2)}' +
     '#eppAudFull{border:2px solid var(--audAccent,#fff);border-radius:999px;padding:11px 18px;background:transparent;color:var(--audAccent,#fff);font-weight:800;cursor:pointer}' +
     '#eppAudStage{flex:1;display:flex;align-items:center;justify-content:center;padding:30px 0}' +
     '#eppAudWaiting{text-align:center;max-width:900px}' +
-    '#eppAudWaiting h2{font-size:clamp(38px,6vw,90px);color:var(--audPrimary,#d4af37);margin:0 0 16px}' +
+    '#eppAudWaiting h2{font-size:clamp(38px,6vw,90px);color:var(--audPrimary,#f45bd2);margin:0 0 16px}' +
     '#eppAudResult{display:none;width:min(1100px,92vw);text-align:center;border:4px solid var(--audAccent,#fff);border-radius:30px;padding:clamp(28px,5vw,70px);box-sizing:border-box}' +
-    '#eppAudResultValue{margin:22px 0;font-size:clamp(60px,10vw,150px);line-height:.95;font-weight:900;color:var(--audPrimary,#d4af37)}' +
+    '#eppAudResultValue{margin:22px 0;font-size:clamp(60px,10vw,150px);line-height:.95;font-weight:900;color:var(--audPrimary,#f45bd2)}' +
     '#eppAudCloud{display:none;width:min(1300px,94vw);text-align:center}' +
-    '#eppAudCloud h2{font-size:clamp(42px,6vw,90px);color:var(--audPrimary,#d4af37)}' +
+    '#eppAudCloud h2{font-size:clamp(42px,6vw,90px);color:var(--audPrimary,#f45bd2)}' +
     '#eppAudWords{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px 28px;min-height:300px}' +
-    '#eppAudWords span{font-weight:900;color:var(--audPrimary,#d4af37);line-height:1}';
+    '#eppAudWords span{font-weight:900;color:var(--audPrimary,#f45bd2);line-height:1}';
 
 
   document.head.appendChild(
@@ -14094,15 +14420,29 @@ guestListeners();
           "light";
 
 
+        const savedAudiencePrimary =
+          String(t.primary || "")
+            .toLowerCase();
+
+        const audiencePrimary =
+          [
+            "#d4af37",
+            "#d8b56a",
+            "#d8b75d",
+            "#e8bd69"
+          ].includes(savedAudiencePrimary)
+            ? "#f45bd2"
+            : t.primary || "#f45bd2";
+
         document.documentElement.style.setProperty(
           "--audPrimary",
-          t.primary || "#d4af37"
+          audiencePrimary
         );
 
 
         document.documentElement.style.setProperty(
           "--audAccent",
-          t.accent || "#ffffff"
+          t.accent || "#77d7ff"
         );
 
 
