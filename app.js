@@ -3595,7 +3595,7 @@ directorRecommendButton.addEventListener("click", function () {
       </h3>
 
       <p>
-        ${activity.description}
+        ${makePromptPhoneInteractive(activity.description)}
       </p>
 
       <div style="margin-top:16px;">
@@ -3605,7 +3605,7 @@ directorRecommendButton.addEventListener("click", function () {
         </span>
 
         <p>
-          "${activity.hostIntro}"
+          "${makePromptPhoneInteractive(activity.hostIntro)}"
         </p>
 
       </div>
@@ -3650,6 +3650,49 @@ directorRecommendButton.addEventListener("click", function () {
 });
 
 
+function makePromptPhoneInteractive(text) {
+
+  let updated =
+    String(text || "");
+
+  updated = updated
+    .replace(
+      /raise\s+(?:your\s+)?hands?\s+if/gi,
+      "Tap BUZZ IN on your phone if"
+    )
+    .replace(
+      /hands?\s+up\s+if/gi,
+      "Tap BUZZ IN on your phone if"
+    )
+    .replace(
+      /stand\s+up\s+if/gi,
+      "Tap BUZZ IN on your phone if"
+    )
+    .replace(
+      /clap\s+if/gi,
+      "Tap BUZZ IN on your phone if"
+    )
+    .replace(
+      /(?:a\s+)?show\s+of\s+hands/gi,
+      "a quick phone vote"
+    )
+    .replace(
+      /shout\s+(?:it\s+)?out/gi,
+      "tap BUZZ IN, then answer when the host calls your name"
+    )
+    .replace(
+      /yell\s+(?:it\s+)?out/gi,
+      "tap BUZZ IN, then answer when the host calls your name"
+    )
+    .replace(
+      /call\s+(?:it\s+)?out/gi,
+      "tap BUZZ IN, then answer when the host calls your name"
+    );
+
+  return updated;
+}
+
+
 function showActivityPlan(activity) {
 
   directorResult.innerHTML = `
@@ -3680,7 +3723,7 @@ function showActivityPlan(activity) {
         </span>
 
         <p style="font-size:18px;">
-          "${activity.hostIntro}"
+          "${makePromptPhoneInteractive(activity.hostIntro)}"
         </p>
 
       </div>
@@ -3706,7 +3749,7 @@ function showActivityPlan(activity) {
             }
 
             <p>
-              ${round.prompt}
+              ${makePromptPhoneInteractive(round.prompt)}
             </p>
 
           </div>
@@ -4435,11 +4478,15 @@ function loadLiveActivityHost() {
 
 
   liveActivityDescription.textContent =
-    activeLiveActivity.description;
+    makePromptPhoneInteractive(
+      activeLiveActivity.description
+    );
 
 
   liveActivityHostIntro.textContent =
-    activeLiveActivity.hostIntro ||
+    makePromptPhoneInteractive(
+      activeLiveActivity.hostIntro
+    ) ||
     "—";
 
 
@@ -4487,11 +4534,16 @@ function loadLiveActivityHost() {
 
 
   liveRoundPrompt.textContent =
-    current.prompt ||
+    makePromptPhoneInteractive(
+      current.prompt
+    ) ||
     "—";
     liveRoundRule.textContent =
   current.rule
-    ? "RULE: " + current.rule
+    ? "RULE: " +
+      makePromptPhoneInteractive(
+        current.rule
+      )
     : "";
 
 liveRoundTime.textContent =
@@ -4812,7 +4864,7 @@ sendRoundToAudienceButton.addEventListener("click", function () {
 
 
     audienceSegmentMessage.textContent =
-      `${round.title ? round.title + " — " : ""}${round.prompt || ""}`;
+      `${round.title ? round.title + " — " : ""}${makePromptPhoneInteractive(round.prompt)}`;
   }
 
 
@@ -5469,7 +5521,7 @@ sendRoundToAudienceButton.addEventListener(
 } else {
 
   audienceSegmentMessage.textContent =
-    `${round.title ? round.title + " — " : ""}${round.prompt || ""}`;
+    `${round.title ? round.title + " — " : ""}${makePromptPhoneInteractive(round.prompt)}`;
 }
 
 
@@ -5514,7 +5566,9 @@ sendRoundToAudienceButton.addEventListener(
       "LIVE NOW";
 
     const liveDetail =
-      round.prompt ||
+      makePromptPhoneInteractive(
+        round.prompt
+      ) ||
       "";
 
 
