@@ -3354,7 +3354,31 @@ showDirectorButton.addEventListener("click", function () {
 
   hideAllScreens();
 
+  const directorParent =
+    showDirectorScreen.parentElement;
+
+  if (
+    directorParent &&
+    directorParent.firstElementChild !==
+      showDirectorScreen
+  ) {
+    directorParent.insertBefore(
+      showDirectorScreen,
+      directorParent.firstElementChild
+    );
+  }
+
   showDirectorScreen.classList.add("active");
+
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
+  requestAnimationFrame(function () {
+    showDirectorScreen.scrollIntoView({
+      behavior: "auto",
+      block: "start"
+    });
+  });
 });
 
 
@@ -5047,6 +5071,16 @@ liveActivityBackButton.addEventListener("click", function () {
   showDirectorScreen.classList.add(
     "active"
   );
+
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
+  requestAnimationFrame(function () {
+    showDirectorScreen.scrollIntoView({
+      behavior: "auto",
+      block: "start"
+    });
+  });
 });
 
 
@@ -6007,6 +6041,16 @@ guestHubPreviewButton.addEventListener("click", function () {
 
 
 guestViewBackButton.addEventListener("click", function () {
+
+  const isRealGuest =
+    new URLSearchParams(
+      window.location.search
+    ).has("join");
+
+  if (isRealGuest) {
+    return;
+  }
+
   hideAllScreens();
   guestHubScreen.classList.add("active");
   loadGuestHubEventInfo();
@@ -7823,6 +7867,31 @@ if (typeof loadFirebaseGuestPoll === "function") {
     params.get("join");
 
   if (!joinCode) return;
+
+  document.body.classList.add(
+    "ctc-guest-only-mode"
+  );
+
+  const guestOnlyStyle =
+    document.createElement("style");
+
+  guestOnlyStyle.id =
+    "ctcGuestOnlyStyle";
+
+  guestOnlyStyle.textContent =
+    ".ctc-guest-only-mode .top-bar{" +
+      "display:none!important;" +
+    "}" +
+    ".ctc-guest-only-mode #guestViewBackButton{" +
+      "display:none!important;" +
+    "}" +
+    ".ctc-guest-only-mode main{" +
+      "padding-top:20px!important;" +
+    "}";
+
+  document.head.appendChild(
+    guestOnlyStyle
+  );
 
   loadGuestEventFromFirebase(joinCode);
 
